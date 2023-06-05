@@ -1,0 +1,96 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Usuario {
+  id       Int     @id @default(autoincrement())
+  email    String  @unique
+  username String  @unique
+  perfil   Perfil  @relation(fields: [perfilId], references: [id])
+  perfilId Int     @unique
+  provas   Prova[]
+}
+
+model Perfil {
+  id      Int      @id @default(autoincrement())
+  codigo  String
+  nome    String
+  Usuario Usuario?
+}
+
+model Aluno {
+  id          Int                   @id @default(autoincrement())
+  email       String                @unique
+  nome        String
+  disciplinas InscricaoDisciplina[]
+}
+
+model Professor {
+  id                  Int                   @id @default(autoincrement())
+  email               String                @unique
+  nome                String
+  professorDisciplina ProfessorDisciplina[]
+}
+
+model Disciplina {
+  id                  Int                   @id @default(autoincrement())
+  title               String
+  inscricaoDisciplina InscricaoDisciplina[]
+  professorDisciplina ProfessorDisciplina[]
+  Prova               Prova[]
+  CursoAfetado        CursoAfetado[]
+}
+
+model InscricaoDisciplina {
+  disciplina   Disciplina @relation(fields: [disciplinaId], references: [id])
+  disciplinaId Int
+  aluno        Aluno      @relation(fields: [alunoId], references: [id])
+  alunoId      Int
+  assignedAt   DateTime   @default(now())
+  assignedBy   String
+
+  @@id([alunoId, disciplinaId])
+}
+
+model ProfessorDisciplina {
+  disciplina   Disciplina @relation(fields: [disciplinaId], references: [id])
+  disciplinaId Int
+  professor    Professor  @relation(fields: [professorId], references: [id])
+  professorId  Int
+  assignedAt   DateTime   @default(now())
+  assignedBy   String
+
+  @@id([professorId, disciplinaId])
+}
+
+model Prova {
+  id               Int        @id @default(autoincrement())
+  nome             String
+  data             DateTime
+  usuarioCriador   Usuario    @relation(fields: [usuarioCriadorId], references: [id])
+  usuarioCriadorId Int
+  disciplina       Disciplina @relation(fields: [disciplinaId], references: [id])
+  disciplinaId     Int
+}
+
+model Curso {
+  id           Int            @id @default(autoincrement())
+  nome         String
+  cursoAfetado CursoAfetado[]
+}
+
+model CursoAfetado {
+  id           Int        @id @default(autoincrement())
+  curso        Curso      @relation(fields: [cursoId], references: [id])
+  cursoId      Int
+  disciplina   Disciplina @relation(fields: [disciplinaId], references: [id])
+  disciplinaId Int
+}
