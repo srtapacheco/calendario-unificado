@@ -11,64 +11,39 @@ datasource db {
 }
 
 model Usuario {
-  id       Int     @id @default(autoincrement())
-  email    String  @unique
-  username String  @unique
-  perfil   Perfil  @relation(fields: [perfilId], references: [id])
-  perfilId Int     @unique
-  provas   Prova[]
+  id                  Int                 @id @default(autoincrement())
+  email               String              @unique
+  username            String              @unique
+  perfil              TipoUsuario         @relation(fields: [perfilId], references: [id])
+  perfilId            Int                 @unique
+  inscricaoDisciplina UsuarioDisciplina[]
+  provas              Prova[]
 }
 
-model Perfil {
+model TipoUsuario {
   id      Int      @id @default(autoincrement())
   codigo  String
   nome    String
   Usuario Usuario?
 }
 
-model Aluno {
-  id          Int                   @id @default(autoincrement())
-  email       String                @unique
-  nome        String
-  disciplinas InscricaoDisciplina[]
-}
-
-model Professor {
-  id                  Int                   @id @default(autoincrement())
-  email               String                @unique
-  nome                String
-  professorDisciplina ProfessorDisciplina[]
-}
-
 model Disciplina {
-  id                  Int                   @id @default(autoincrement())
+  id                  Int                 @id @default(autoincrement())
   title               String
-  inscricaoDisciplina InscricaoDisciplina[]
-  professorDisciplina ProfessorDisciplina[]
+  inscricaoDisciplina UsuarioDisciplina[]
   Prova               Prova[]
   CursoAfetado        CursoAfetado[]
 }
 
-model InscricaoDisciplina {
+model UsuarioDisciplina {
   disciplina   Disciplina @relation(fields: [disciplinaId], references: [id])
   disciplinaId Int
-  aluno        Aluno      @relation(fields: [alunoId], references: [id])
-  alunoId      Int
+  usuario      Usuario    @relation(fields: [usuarioId], references: [id])
+  usuarioId    Int
   assignedAt   DateTime   @default(now())
   assignedBy   String
 
-  @@id([alunoId, disciplinaId])
-}
-
-model ProfessorDisciplina {
-  disciplina   Disciplina @relation(fields: [disciplinaId], references: [id])
-  disciplinaId Int
-  professor    Professor  @relation(fields: [professorId], references: [id])
-  professorId  Int
-  assignedAt   DateTime   @default(now())
-  assignedBy   String
-
-  @@id([professorId, disciplinaId])
+  @@id([usuarioId, disciplinaId])
 }
 
 model Prova {
