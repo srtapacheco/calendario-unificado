@@ -1,0 +1,45 @@
+:root {
+  font-family: Quicksand, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+* {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+a {
+  font-weight: 400;
+  color: #4F5873;
+  text-decoration: inherit;
+}
+
+
+body {
+  margin: 0;
+  display: flex;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 213px;
+  font-size: 1em;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color 0.25s;
+  border: none;
+}
+
+#app {
+  width: 100%;
+  margin: 0;
+}
