@@ -1,5 +1,5 @@
 :root {
-  font-family: Quicksand, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Quicksand', sans-serif;
   line-height: 1.5;
   font-weight: 400;
 }
@@ -25,9 +25,55 @@ body {
 }
 
 h1 {
-  font-size: 3.2em;
   line-height: 1.1;
 }
+
+/* Estilos para telas de celular */
+@media (max-width: 767px) {
+  h1 {
+    font-size: 2rem;
+  }
+}
+
+/* Estilos para telas de tablet */
+@media (min-width: 768px) and (max-width: 1023px) {
+  h1 {
+    font-size: 3rem;
+  }
+}
+
+/* Estilos para telas de computador */
+@media (min-width: 1024px) {
+  h1 {
+    font-size: 4rem;
+  }
+}
+
+
+
+/* Estilos para telas de celular */
+@media (max-width: 767px) {
+  h2 {
+    font-size: 1.5rem;
+  }
+}
+
+/* Estilos para telas de tablet */
+@media (min-width: 768px) and (max-width: 1023px) {
+  h2 {
+    font-size: 1.9rem;
+  }
+}
+
+/* Estilos para telas de computador */
+@media (min-width: 1024px) {
+  h2 {
+    font-size: 2.5rem;
+  }
+}
+
+
+
 
 button {
   border-radius: 213px;
