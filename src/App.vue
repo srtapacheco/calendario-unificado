@@ -1,9 +1,11 @@
 <script setup>
-import LoginPage from './pages/LoginPage.vue';
+import CalendarioAluno from './pages/CalendarioAluno.vue';
+// import LoginPage from './pages/LoginPage.vue'
 </script>
 
 <template>
-  <LoginPage/>
+  <CalendarioAluno/>
+  <!-- <LoginPage/> -->
 </template>
 
 <style scoped></style>
