@@ -1,0 +1,85 @@
+html,
+body {
+    align-items: center;
+    justify-content: center;
+    background: #F4F7F9;
+}
+
+.v-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.external {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: left;
+}
+
+.toolbar-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.custom-app-bar {
+    background-color: #010B40 !important;
+}
+
+.custom-icon-calendar-check {
+    font-size: 3em;
+}
+
+.custom-icon-logout,
+.custom-icon-arrow-left {
+    font-size: 2em;
+}
+
+.custom-icon-calendar-check,
+.custom-icon-logout,
+.custom-icon-arrow-left {
+    /* Adicione seus estilos personalizados aqui */
+    color: #1ED96F;
+}
+
+
+.container-options {
+    text-align: left;
+    padding-top: 3rem;
+}
+
+.custom-card {
+    height: 150px;
+    cursor: pointer;
+    background: rgba(18, 115, 87, 0.08);
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.custom-title-card {
+    font-size: 1.5rem !important; /* Tamanho de fonte comum para todos os options */
+    font-weight: 700 !important;
+    color: #1ED96F;
+}
+
+.custom-subtitle-card {
+    color: #4F5873;
+    font-weight: 700 !important;
+    font-size: 1.5rem !important; /* Tamanho de fonte comum para todos os options */
+    
+}
+
+p {
+    color: #4F5873;
+    text-align: left;
+    font-size: 2em;
+}
+
+h2 {
+    font-weight: 700;
+    color: #4F5873;
+}
