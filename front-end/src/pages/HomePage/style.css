@@ -1,60 +1,97 @@
-.custom-list{
-    padding: 1rem;
-  }
-  .custom-title {
-    font-size: 1.5rem !important; /* Tamanho de fonte comum para todos os options */
-    font-weight: 700 !important;
-    color: #4F5873;
-  }
-  
-  .custom-icon {
-    font-size: 3rem; /* Tamanho de fonte padrão para os ícones */
-    color: #1ED96F; /* Cor padrão para os ícones */
-  }
-  
-  html,
-  body {
+html,
+body {
     align-items: center;
     justify-content: center;
     background: #F4F7F9;
-  }
-  
-  .external {
+}
+
+.v-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.external {
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: left;
-  }
-  
-  .container-options {
+}
+
+.toolbar-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.custom-app-bar {
+    background-color: #010B40 !important;
+}
+
+.custom-icon-calendar-check {
+    font-size: 3em;
+}
+
+.custom-icon-logout,
+.custom-icon-arrow-left {
+    font-size: 2em;
+}
+
+.custom-icon-calendar-check,
+.custom-icon-logout,
+.custom-icon-arrow-left {
+    /* Adicione seus estilos personalizados aqui */
+    color: #1ED96F;
+}
+
+.custom-list {
+    padding: 1rem;
+}
+
+
+.container-options {
     text-align: left;
     padding-top: 3rem;
-  }
-  
-  .container-options > * {
+}
+
+.container-options>* {
     margin-bottom: 1.5rem;
-  }
-  
-  .card-container {
+}
+
+.card-container {
     display: flex;
-  }
-  
-  .custom-card {
+}
+
+.custom-card {
     width: 200px;
     height: 150px;
     margin-right: 10px;
-    cursor: pointer; 
+    cursor: pointer;
     background-color: rgba(18, 115, 87, 0.08);
-  }
-  
-  p {
+}
+
+.custom-title {
+    font-size: 1.5rem !important; /* Tamanho de fonte comum para todos os options */
+    font-weight: 700 !important;
+    color: #4F5873;
+}
+
+.custom-icon {
+    font-size: 3rem; /* Tamanho de fonte padrão para os ícones */
+    color: #1ED96F; /* Cor padrão para os ícones */
+}
+
+
+p {
     color: #4F5873;
     text-align: left;
     font-size: 2em;
-  }
-  
-  h2 {
+}
+
+h2 {
     color: #17BF60;
     font-weight: 700;
     text-align: start;
-  }
+}
