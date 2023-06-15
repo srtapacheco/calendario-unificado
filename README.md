@@ -1,2 +1,24 @@
 # calendario-unificado
-Construção do front-end do sistema de calendário unificado, projeto desenvolvido para a disciplina de Programação Avançada ministrada na Universidade Federal do Rio de Janeiro.
+
+## Project setup
+```
+npm install
+```
+
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
+
+### Compiles and minifies for production
+```
+npm run build
+```
+
+### Lints and fixes files
+```
+npm run lint
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
