@@ -1,4 +1,3 @@
- 
 html,
 body {
   align-items: center;
@@ -18,7 +17,7 @@ body {
   text-align: center;
   top: 0;
   width: 100%;
-  margin-top: 5em; /* Ajuste a altura do app bar aqui */
+  margin-top: 5em; /* Ajuste da altura do titulo em app bar */
 }
 
 .container {
@@ -108,4 +107,14 @@ h2 {
     font-size: .8em;
   }
 }
-  
+
+.add-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+  background-color: #1ED96F !important;
+  border-radius: 213px  !important;
+  color: #FFFFFF !important;
+  height: 50px !important;  
+}
