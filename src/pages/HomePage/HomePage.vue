@@ -1,18 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar app class="custom-app-bar">
-      <v-btn icon @click="goBack">
-        <v-icon class="custom-icon-arrow-left">mdi-arrow-left</v-icon>
-      </v-btn>
-      <v-toolbar-title class="toolbar-title">
-        <v-icon class="custom-icon-calendar-check mr-2">mdi-calendar-check</v-icon>
-      </v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn icon @click="logout">
-        <v-icon class="custom-icon-logout">mdi-logout</v-icon>
-      </v-btn>
-    </v-app-bar>
-    <v-navigation-drawer v-model="drawer" app></v-navigation-drawer>
+    <HeaderComponent :hasBackButton="false"/>
 
     <v-main>
       <div class="external">
@@ -43,7 +31,9 @@
 </template>
 
 <script>
+import HeaderComponent from '@/components/HeaderComponent.vue';
 export default {
+  components: { HeaderComponent },
   data() {
     return {
       userName: "Fulano de tal",
