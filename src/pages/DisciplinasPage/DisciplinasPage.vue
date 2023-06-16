@@ -23,6 +23,10 @@
           </div>
         </div>
       </div>
+      <v-btn class="add-button" fab @click="addCard">
+        <v-icon>mdi-plus</v-icon>
+        <text class="button-text">Adicionar disciplina</text>
+      </v-btn>
     </v-main>
   </v-app>
 </template>
