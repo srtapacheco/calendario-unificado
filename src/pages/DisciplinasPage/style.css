@@ -1,85 +1,124 @@
-html,
-body {
-    align-items: center;
-    justify-content: center;
-    background: #F4F7F9;
-}
 
-.v-main {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-
-.external {
+.card-container{
+    width: 600px;
+    
+  }
+  
+  .external {
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: left;
-}
-
-.toolbar-title {
+    text-align: center;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    margin-top: 10em; /* Ajuste a altura do app bar aqui */
+  }
+  
+  .toolbar-title {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-
-.custom-app-bar {
+  }
+  
+  html,
+  body {
+    align-items: center;
+    justify-content: center;
+    background: #F4F7F9;
+  }
+  
+  .v-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  
+  
+  
+  .custom-app-bar {
     background-color: #010B40 !important;
-}
-
-.custom-icon-calendar-check {
+  }
+  
+  .custom-icon-calendar-check {
     font-size: 3em;
-}
-
-.custom-icon-logout,
-.custom-icon-arrow-left {
+  }
+  
+  .custom-icon-logout,
+  .custom-icon-arrow-left {
     font-size: 2em;
-}
-
-.custom-icon-calendar-check,
-.custom-icon-logout,
-.custom-icon-arrow-left {
-    /* Adicione seus estilos personalizados aqui */
+  }
+  
+  .custom-icon-calendar-check,
+  .custom-icon-logout,
+  .custom-icon-arrow-left {
     color: #1ED96F;
-}
-
-
-.container-options {
+  }
+  
+  .delete-icon-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    cursor: pointer;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+  }
+  
+  .custom-delete-icon {
+    color: #F2295F !important;
+  }
+  
+  .card-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .profile-option {
+    flex-grow: 1;
+    margin-left: 1rem;
+  }
+  
+  .container-options {
     text-align: left;
     padding-top: 3rem;
-}
-
-.custom-card {
-    height: 150px;
+  }
+  
+  .custom-card {
     cursor: pointer;
-    background: rgba(18, 115, 87, 0.08);
-    border-radius: 10px;
+    background: rgba(18, 115, 87, 0.08) !important;
+    border-radius: 10px !important;
     margin-bottom: 20px;
-}
-
-.custom-title-card {
-    font-size: 1.5rem !important; /* Tamanho de fonte comum para todos os options */
+    padding: 0.5rem !important;
+  }
+  
+  .custom-title-card {
+    font-size: 1.5rem !important;
     font-weight: 700 !important;
     color: #1ED96F;
-}
-
-.custom-subtitle-card {
-    color: #4F5873;
+  }
+  
+  .custom-subtitle-card {
     font-weight: 700 !important;
-    font-size: 1.5rem !important; /* Tamanho de fonte comum para todos os options */
-    
-}
-
-p {
+    color: #4F5873 !important;
+    font-size: 1.5rem !important;
+    line-height: 2rem !important;
+  }
+  
+  .custom-description-card {
+    color: #4F5873;
+  }
+  
+  p {
     color: #4F5873;
     text-align: left;
     font-size: 2em;
-}
-
-h2 {
+  }
+  
+  h2 {
     font-weight: 700;
     color: #4F5873;
-}
+    text-align: left;
+  }
+  

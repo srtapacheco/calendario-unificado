@@ -79,4 +79,4 @@ export default {
 };
 </script>
 
-<style src="./style.css" scopedZZ></style>
+<style src="./style.css" scoped></style>
