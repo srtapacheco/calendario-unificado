@@ -50,12 +50,17 @@ export default {
         },
         {
           cod: "COS987",
-          name: "Computadores e Sociedade",
+          name: "Computadores e Sociedade 1",
           courses: "Engenharia Civil, Engenharia de Computação e Informação"
         },
         {
-          cod: "COS987",
-          name: "Computadores e Sociedade",
+          cod: "COS988",
+          name: "Computadores e Sociedade 2",
+          courses: "Engenharia Civil, Engenharia de Computação e Informação"
+        },
+        {
+          cod: "COS989",
+          name: "Computadores e Sociedade 3",
           courses: "Engenharia Civil, Engenharia de Computação e Informação"
         },
       ],
