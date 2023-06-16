@@ -6,8 +6,6 @@
       <div class="external">
         <div class="container">
           <h2>Suas disciplinas</h2>
-
-          <div class="container-options">
             <div class="card-container">
               <v-card class="custom-card" v-for="option in profileOptions" :key="option.cod" @click="cardClicked(option)">
                 <div class="card-content">
@@ -20,7 +18,6 @@
                 <v-card-text class="custom-courses-card">{{ option.courses }}</v-card-text>
               </v-card>
             </div>
-          </div>
         </div>
       </div>
     </v-main>

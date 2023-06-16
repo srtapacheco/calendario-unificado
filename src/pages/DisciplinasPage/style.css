@@ -6,11 +6,6 @@ body {
   background: #F4F7F9;
 }
 
-.card-container{
-  width: 100%;
-  
-}
-
 .external {
   display: flex;
   flex-direction: column;
@@ -19,11 +14,12 @@ body {
   position: fixed;
   top: 0;
   width: 100%;
-  margin-top: 10em; /* Ajuste a altura do app bar aqui */
+  margin-top: 8em; /* Ajuste a altura do app bar aqui */
 }
 
 .container {
   max-width: 860px;
+  width: 100%;
   padding: 0 2rem;
 }
 
@@ -36,6 +32,12 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.card-container{
+  margin-top: 3rem;
+  width: 100%;
+  text-align: left;
 }
 
 .delete-icon-container {
@@ -55,16 +57,6 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-.profile-option {
-  flex-grow: 1;
-  margin-left: 1rem;
-}
-
-.container-options {
-  text-align: left;
-  padding-top: 3rem;
 }
 
 .custom-card {
