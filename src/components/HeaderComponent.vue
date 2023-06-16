@@ -23,7 +23,7 @@ export default {
 <style scoped>
  header {
     background-color: #010B40 !important;
-    padding: 1rem 2rem;
+    padding: .5rem 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -36,12 +36,12 @@ export default {
     width: 100%;
   }
   .custom-icon-calendar-check {
-    font-size: 3em;
+    font-size: 2.5em;
   }
   
   .custom-icon-logout,
   .custom-icon-arrow-left {
-    font-size: 2em;
+    font-size: 1.5em;
   }
   
   .custom-icon-calendar-check,
