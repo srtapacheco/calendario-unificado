@@ -11,7 +11,7 @@ body {
   justify-content: center;
   align-items: center;
   color: #1ED96F;
-  font-family: "Quicksand", sans-serif;
+  font-family: inherit;
 }
 
 .title i {
