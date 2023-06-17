@@ -1,9 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap');
-
 :root {
   font-family: 'Quicksand', sans-serif;
   line-height: 1.5;
   font-weight: 400;
+
+  --background: #F4F7F9;
+  --text-gray: #4F5873
 }
 
 * {
@@ -24,10 +25,13 @@ body {
   display: flex;
   min-width: 320px;
   min-height: 100vh;
+  background-color: var(--background);
 }
 
 h1 {
   line-height: 1.1;
+  color: var(--text-gray);
+  font-weight: 600;
 }
 
 /* Estilos para telas de celular */
