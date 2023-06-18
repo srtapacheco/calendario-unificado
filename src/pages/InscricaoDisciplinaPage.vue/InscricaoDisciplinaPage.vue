@@ -63,11 +63,19 @@ export default {
   },
   methods: {
     enrollCourse(course) {
-      // Implementar a lógica para se inscrever na disciplina aqui
+      // Verifica se o curso já está inscrito
+      if (course.isEnrolled) {
+        console.log('Curso já está inscrito:', course);
+        return; // Não faz nada se já estiver inscrito
+      }
+      
+      // Realiza a inscrição no curso - Implementar logica para envio dos dados de inscricao
+      course.isEnrolled = true;
       console.log('Inscrição na disciplina:', course);
     }
   }
 };
 </script>
+
 
 <style src="./style.css"></style>
