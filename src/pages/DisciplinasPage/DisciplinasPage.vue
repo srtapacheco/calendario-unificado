@@ -1,29 +1,31 @@
 <template>
   <v-app>
-    <HeaderComponent/>
+    <HeaderComponent />
 
     <v-main>
       <div class="external">
         <div class="container">
           <h2>Suas disciplinas</h2>
-            <div class="card-container">
-              <v-card class="custom-card" v-for="option in profileOptions" :key="option.cod" @click="cardClicked(option)">
-                <div class="card-content">
-                  <v-card-title class="custom-title-card">{{ option.cod }}</v-card-title>
-                  <div class="delete-icon-container" @click="deleteCard(option)">
-                    <v-icon class="custom-delete-icon">mdi-trash-can-outline</v-icon>
-                  </div>
+          <div class="card-container">
+            <v-card elevation="0" class="custom-card" v-for="option in profileOptions" :key="option.cod"
+              @click="cardClicked(option)">
+              <div class="card-content">
+                <v-card-title class="custom-title-card">{{ option.cod }}</v-card-title>
+                <div class="delete-icon-container" @click="deleteCard(option)">
+                  <v-icon class="custom-delete-icon">mdi-trash-can-outline</v-icon>
                 </div>
-                <v-card-subtitle class="custom-subtitle-card">{{ option.name }}</v-card-subtitle>
-                <v-card-text class="custom-courses-card">{{ option.courses }}</v-card-text>
-              </v-card>
-            </div>
+              </div>
+              <v-card-subtitle class="custom-subtitle-card">{{ option.name }}</v-card-subtitle>
+              <v-card-text class="custom-courses-card">{{ option.courses }}</v-card-text>
+            </v-card>
+          </div>
         </div>
       </div>
-      <v-btn class="add-button" fab @click="addCard">
-        <v-icon>mdi-plus</v-icon>
-        <text class="button-text">Adicionar disciplina</text>
+      <v-btn class="add-button" icon>
+        <v-icon class="custom-icon-add">mdi-plus</v-icon>
       </v-btn>
+
+
     </v-main>
   </v-app>
 </template>

@@ -10,14 +10,13 @@ body {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  position: fixed;
   top: 0;
   width: 100%;
-  margin-top: 8em;
+  margin-top: 4em;
 }
 
 .container {
-  max-width: 860px;
+  max-width: 660px;
   width: 100%;
   padding: 0 2rem;
 }
@@ -105,10 +104,16 @@ h2 {
 .add-button {
   position: fixed;
   bottom: 20px;
-  right: 20px;
+  right: 1.5rem;
   z-index: 9999;
   background-color: #1ED96F !important;
-  border-radius: 213px !important;
   color: #FFFFFF !important;
-  height: 50px !important;
+  width: 4rem !important; /* Ajuste o valor de acordo com o tamanho desejado */
+  height: 4rem !important; 
+
 }
+
+.custom-icon-add{
+  font-size: 2.5rem;
+}
+
