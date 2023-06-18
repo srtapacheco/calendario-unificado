@@ -1,18 +1,17 @@
 <template>
   <v-app>
     <HeaderComponent />
-
     <v-main>
       <div class="external">
         <div class="container">
           <h2>Suas disciplinas</h2>
           <div class="card-container">
-            <v-card elevation="0" class="custom-card" v-for="option in profileOptions" :key="option.cod"
-              @click="cardClicked(option)">
+            <v-card elevation="0" class="custom-card" v-for="option in profileOptions" :key="option.cod">
               <div class="card-content">
                 <v-card-title class="custom-title-card">{{ option.cod }}</v-card-title>
-                <div class="delete-icon-container" @click="deleteCard(option)">
-                  <v-icon class="custom-delete-icon">mdi-trash-can-outline</v-icon>
+                <div class="delete-icon-container">
+                  <v-icon class="custom-delete-icon" @click="toggleDeleteConfirmation(option)"
+                    :class="{ 'disabled': option.showDeleteConfirmation }">mdi-trash-can-outline</v-icon>
                 </div>
               </div>
               <v-card-subtitle class="custom-subtitle-card">{{ option.name }}</v-card-subtitle>
@@ -21,21 +20,23 @@
           </div>
         </div>
       </div>
+      <ModalConfirmation :show-modal="showModal" @confirm-delete="deleteCardConfirmation" />
       <v-btn class="add-button" icon>
         <v-icon class="custom-icon-add">mdi-plus</v-icon>
       </v-btn>
-
-
     </v-main>
   </v-app>
 </template>
 
+
 <script>
 import HeaderComponent from '../../components/HeaderComponent.vue';
+import ModalConfirmation from '@/components/ModalConfirmation.vue';
 
 export default {
   components: {
-    HeaderComponent
+    HeaderComponent,
+    ModalConfirmation
   },
   data() {
     return {
@@ -68,18 +69,45 @@ export default {
         },
       ],
       drawer: false,
+      showModal: false,
+      selectedDiscipline: null,
+      isModalVisible: false,
     };
   },
+
   methods: {
     deleteCard(option) {
-      const index = this.profileOptions.findIndex(item => item.cod === option.cod);
+      this.selectedDiscipline = option;
+      this.showModal = true;
+    },
+    cardClicked(option) {
+      // Implementar a lógica para quando um card for clicado
+      console.log("Card clicado:", option);
+    },
+    deleteCardConfirmation() {
+      const index = this.profileOptions.findIndex(item => item.cod === this.selectedDiscipline.cod);
       if (index !== -1) {
         this.profileOptions.splice(index, 1);
       }
+      this.showModal = false;
     },
-    cardClicked(option) {
-      // Implemente a lógica desejada quando um card for clicado
-      console.log("Card clicado:", option);
+
+    cancelDeleteCard() {
+      if (this.selectedDiscipline) {
+        this.selectedDiscipline.showDeleteConfirmation = false;
+        this.selectedDiscipline = null;
+      }
+      this.showModal = false;
+    },
+    toggleDeleteConfirmation(option) {
+      if (!option.showDeleteConfirmation) {
+        option.showDeleteConfirmation = true;
+        this.selectedDiscipline = option;
+        this.showModal = true;
+      } else {
+        option.showDeleteConfirmation = false;
+        this.cancelDeleteCard();
+      }
     },
   },
 };
