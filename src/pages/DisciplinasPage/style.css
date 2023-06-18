@@ -5,23 +5,20 @@ body {
   background: #F4F7F9;
 }
 
-.card-container{
-  width: 100%;
-  
-}
-
 .external {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
+  position: fixed;
   top: 0;
   width: 100%;
-  margin-top: 5em; /* Ajuste da altura do titulo em app bar */
+  margin-top: 8em;
 }
 
 .container {
   max-width: 860px;
+  width: 100%;
   padding: 0 2rem;
 }
 
@@ -34,6 +31,12 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.card-container {
+  margin-top: 3rem;
+  width: 100%;
+  text-align: left;
 }
 
 .delete-icon-container {
@@ -53,16 +56,6 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-.profile-option {
-  flex-grow: 1;
-  margin-left: 1rem;
-}
-
-.container-options {
-  text-align: left;
-  padding-top: 3rem;
 }
 
 .custom-card {
@@ -108,13 +101,14 @@ h2 {
   }
 }
 
+
 .add-button {
   position: fixed;
   bottom: 20px;
   right: 20px;
   z-index: 9999;
   background-color: #1ED96F !important;
-  border-radius: 213px  !important;
+  border-radius: 213px !important;
   color: #FFFFFF !important;
-  height: 50px !important;  
+  height: 50px !important;
 }
