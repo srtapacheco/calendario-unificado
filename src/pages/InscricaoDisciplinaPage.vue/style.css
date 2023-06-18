@@ -1,0 +1,90 @@
+html,
+body {
+  align-items: center;
+  justify-content: center;
+  background: #F4F7F9;
+}
+
+.external {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  margin-top: 8em;
+}
+
+.container {
+  max-width: 660px;
+  width: 100%;
+  padding: 0 2rem;
+}
+
+.container h2 {
+  width: 100%;
+  text-align: left;
+}
+
+.v-main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+p {
+  color: #4F5873;
+  text-align: left;
+  font-size: 2em;
+}
+
+h2 {
+  font-weight: 700;
+  color: #4F5873;
+  text-align: left;
+}
+
+@media only screen and (max-width: 600px) {
+  body {
+    font-size: .8em;
+  }
+}
+
+
+
+.custom-icon-add {
+  font-size: 2.5rem;
+}
+
+.course-card {
+  margin-bottom: 20px;
+}
+
+.course-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.course-code {
+  font-weight: bold;
+}
+
+h3 {
+  color: #17BF60;
+  font-weight: 700;
+  font-size: 1.5rem;
+  text-align: left;
+}
+
+.course-code, .course-name {
+  font-weight: 400;
+  font-size: 1.8rem;
+  color: #4F5873;
+  line-height: 45px;
+}
+
+.course-name{
+  font-weight: 700;
+}
