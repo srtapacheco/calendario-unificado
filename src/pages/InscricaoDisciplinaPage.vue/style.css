@@ -51,15 +51,19 @@ h2 {
   }
 }
 
-
+.custom-card {
+  margin-bottom: 20px;
+  margin-top: 20px;
+  background: #FFFFFF !important;
+  border: 2px solid rgba(79, 88, 115, 0.1) !important;
+  border-radius: 10px !important;
+  padding: 0.5em !important;
+}
 
 .custom-icon-add {
   font-size: 2.5rem;
 }
 
-.course-card {
-  margin-bottom: 20px;
-}
 
 .course-info {
   display: flex;
@@ -76,15 +80,32 @@ h3 {
   font-weight: 700;
   font-size: 1.5rem;
   text-align: left;
+  margin-bottom: 1em;
 }
 
-.course-code, .course-name {
+.course-code,
+.course-name {
   font-weight: 400;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   color: #4F5873;
-  line-height: 45px;
 }
 
-.course-name{
+.course-name {
   font-weight: 700;
+}
+
+.custom-enrolled-button, .custom-unenrolled-button{
+  border-radius: 213px !important;
+}
+
+.custom-enrolled-button { 
+  color: #FFFFFF !important;
+  background: #1ED96F !important;
+
+}
+
+.custom-unenrolled-button { 
+  color: #F2295F !important;
+  background: rgba(242, 41, 95, 0.1) !important;
+
 }
