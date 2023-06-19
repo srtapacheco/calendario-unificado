@@ -11,6 +11,7 @@
     "@fortawesome/fontawesome-free": "^6.4.0",
     "@mdi/font": "^7.2.96",
     "core-js": "^3.8.3",
+    "date-fns": "^2.30.0",
     "vue": "^3.2.13",
     "vuetify": "^3.3.3"
   },

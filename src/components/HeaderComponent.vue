@@ -32,11 +32,14 @@ export default {
 
 <style scoped>
  header {
-    background-color: #010B40 !important;
+    background-color: #010B40;
     padding: .5rem 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
+    position: fixed;
+    width: 100%;
+    z-index: 999;
   }
 
   .containter {
