@@ -50,7 +50,7 @@ p {
 h2 {
   color: #4F5873;
   text-align: left;
- 
+
 }
 
 .custom-name-title {
@@ -94,4 +94,12 @@ ul {
   color: red;
   cursor: pointer;
   margin-left: 1rem;
+}
+
+
+.add-exam-button {
+  background: #1ED96F;
+  border-radius: 213px;
+  color: #FFFFFF;
+  margin-top: 1rem;
 }

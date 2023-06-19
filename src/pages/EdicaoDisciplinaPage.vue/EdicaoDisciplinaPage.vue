@@ -48,6 +48,14 @@
               </v-icon>
             </li>
           </ul>
+          <div class="code-container">
+            <v-btn v-if="userType === 'professor'" class="add-exam-button" @click="addExamDate">
+              <v-icon>mdi-plus-circle-outline</v-icon> 
+              Adicionar prova 
+              
+            </v-btn>
+          </div>
+      
         </div>
       </div>
     </v-main>
