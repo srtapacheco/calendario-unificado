@@ -4,7 +4,13 @@
   font-weight: 400;
 
   --background: #F4F7F9;
-  --text-gray: #4F5873
+  --text-gray: #4F5873;
+  --light-gray: #e3e8ee;
+  --light-gray-text: #9FA6BA;
+  --green-text: #17BF60;
+  --transparent-green: rgba(18, 115, 87, 0.1);
+  --negative-text: #F2295F;
+  --negative-color-bg: rgba(242, 41, 95, 0.1);
 }
 
 * {
@@ -13,7 +19,7 @@
   font-weight: 400;
 }
 
-a {
+a, span, p {
   font-weight: 400;
   color: #4F5873;
   text-decoration: inherit;
@@ -34,33 +40,27 @@ h1 {
   font-weight: 600;
 }
 
-/* Estilos para telas de celular */
-@media (max-width: 767px) {
-  h1 {
-    font-size: 2rem;
-  }
-}
-
 /* Estilos para telas de tablet */
-@media (min-width: 768px) and (max-width: 1023px) {
+@media (min-width: 768px) {
   h1 {
     font-size: 3rem;
   }
 }
 
-/* Estilos para telas de computador */
-@media (min-width: 1024px) {
-  h1 {
-    font-size: 4rem;
-  }
-}
-
 
 
 /* Estilos para telas de celular */
 @media (max-width: 767px) {
+  h1 {
+    font-size: 2rem;
+  }
+
   h2 {
     font-size: 1.5rem;
+  }
+
+  p, span, a, button {
+    font-size: .8rem;
   }
 }
 
@@ -74,7 +74,7 @@ h1 {
 /* Estilos para telas de computador */
 @media (min-width: 1024px) {
   h2 {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
   }
 }
 
