@@ -52,12 +52,9 @@ export default {
           window.localStorage.setItem("NOME", this.nome)
           window.localStorage.setItem("EMAIL", this.email)
           window.localStorage.setItem("PERFIL", this.perfil)
+          window.localStorage.setItem("TOKEN", response.data.session.token)
 
-          if (window.localStorage.getItem("PERFIL") == 'Aluno') {
-            this.$router.push("./home")
-          } else if (window.localStorage.getItem("PERFIL") == 'Professor') {
-            this.$router.push('./professor')
-          }
+          this.$router.push("./home")
           console.log(response.data.userReturn.user);
         })
         .catch((error) => {
