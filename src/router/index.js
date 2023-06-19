@@ -20,7 +20,13 @@ const routes = [
     name: 'Disciplinas',
     component: DisciplinasPage,
     meta: {requireAuth: true}
-  }
+  },
+  // {
+  //   path: '/calendario',
+  //   name: 'Calendario',
+  //   component: Calendario,
+  //   meta: {requireAuth: true}
+  // }
 ]
 
 const router = createRouter({
