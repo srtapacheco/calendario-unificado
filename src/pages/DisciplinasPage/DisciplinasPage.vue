@@ -6,21 +6,21 @@
         <div class="container">
           <h2>Suas disciplinas</h2>
           <div class="card-container">
-            <v-card elevation="0" class="custom-card" v-for="option in profileOptions" :key="option.cod">
+            <v-card elevation="0" class="custom-card" v-for="turma in turmasInscrito" :key="turma.codigo">
               <div class="card-content">
-                <v-card-title class="custom-title-card">{{ option.cod }}</v-card-title>
+                <v-card-title class="custom-title-card">{{ turma.codigo }}</v-card-title>
                 <div class="delete-icon-container">
-                  <v-icon class="custom-delete-icon" @click="toggleDeleteConfirmation(option)"
-                    :class="{ 'disabled': option.showDeleteConfirmation }">mdi-trash-can-outline</v-icon>
+                  <v-icon class="custom-delete-icon" @click="toggleDeleteConfirmation(turma)"
+                    :class="{ 'disabled': turma.showDeleteConfirmation }">mdi-trash-can-outline</v-icon>
                 </div>
               </div>
-              <v-card-subtitle class="custom-subtitle-card">{{ option.name }}</v-card-subtitle>
-              <v-card-text class="custom-courses-card">{{ option.courses }}</v-card-text>
+              <v-card-subtitle class="custom-subtitle-card">{{ turma.nome }}</v-card-subtitle>
+              <v-card-text class="custom-courses-card">{{ turma.courses }}</v-card-text>
             </v-card>
           </div>
         </div>
       </div>
-      <ModalConfirmation :show-modal="showModal" @confirm-delete="deleteCardConfirmation" />
+      <ModalConfirmation :show-modal="showModal" @confirm-delete="deleteCardConfirmation()" />
       <v-btn class="add-button" icon>
         <v-icon class="custom-icon-add">mdi-plus</v-icon>
       </v-btn>
@@ -32,6 +32,9 @@
 <script>
 import HeaderComponent from '../../components/HeaderComponent.vue';
 import ModalConfirmation from '@/components/ModalConfirmation.vue';
+import api from "@/plugins/vueAxios";
+import DisciplinaUsuario from '@/models/disciplinaUsuario.js'
+import Turma from '@/models/turma.js'
 
 export default {
   components: {
@@ -40,58 +43,39 @@ export default {
   },
   data() {
     return {
-      userName: "Fulano de tal",
-      profileOptions: [
-        {
-          cod: "COS123",
-          name: "Inteligencia Artificial",
-          courses: "Engenharia Eletrônica e de Computação, Engenharia de Computação e Informação"
-        },
-        {
-          cod: "COS234",
-          name: "Algebra Linear Computacional",
-          courses: "Engenharia Civil, Engenharia de Computação e Informação"
-        },
-        {
-          cod: "COS987",
-          name: "Computadores e Sociedade 1",
-          courses: "Engenharia Civil, Engenharia de Computação e Informação"
-        },
-        {
-          cod: "COS988",
-          name: "Computadores e Sociedade 2",
-          courses: "Engenharia Civil, Engenharia de Computação e Informação"
-        },
-        {
-          cod: "COS989",
-          name: "Computadores e Sociedade 3",
-          courses: "Engenharia Civil, Engenharia de Computação e Informação"
-        },
-      ],
+      username: window.localStorage.getItem('NOME'),
+      perfil: window.localStorage.getItem('PERFIL'),
+      turmasInscrito: [],
       drawer: false,
       showModal: false,
       selectedDiscipline: null,
       isModalVisible: false,
     };
   },
-
+  created() {
+    api
+      .get('/disciplina', {
+        params: {
+          username: this.username,
+        }
+      })
+      .then((response) => {
+        this.turmasInscrito = response.data;
+        console.log(response.data)
+      })
+      .catch((error) => {
+        console.log(error.response.data.message);
+      });
+  },
   methods: {
-    deleteCard(option) {
-      this.selectedDiscipline = option;
+    deleteCard(turma) {
+      this.selectedDiscipline = turma;
       this.showModal = true;
     },
-    cardClicked(option) {
+    cardClicked(turma) {
       // Implementar a lógica para quando um card for clicado
-      console.log("Card clicado:", option);
+      console.log("Card clicado:", turma);
     },
-    deleteCardConfirmation() {
-      const index = this.profileOptions.findIndex(item => item.cod === this.selectedDiscipline.cod);
-      if (index !== -1) {
-        this.profileOptions.splice(index, 1);
-      }
-      this.showModal = false;
-    },
-
     cancelDeleteCard() {
       if (this.selectedDiscipline) {
         this.selectedDiscipline.showDeleteConfirmation = false;
@@ -99,16 +83,51 @@ export default {
       }
       this.showModal = false;
     },
-    toggleDeleteConfirmation(option) {
-      if (!option.showDeleteConfirmation) {
-        option.showDeleteConfirmation = true;
-        this.selectedDiscipline = option;
+    toggleDeleteConfirmation(turma) {
+      if (!turma.showDeleteConfirmation) {
+        turma.showDeleteConfirmation = true;
+        this.selectedDiscipline = turma;
         this.showModal = true;
+
       } else {
-        option.showDeleteConfirmation = false;
+        turma.showDeleteConfirmation = false;
         this.cancelDeleteCard();
       }
     },
+    deleteCardConfirmation() {
+      const index = this.turmasInscrito.findIndex(item => item.codigo === this.selectedDiscipline.codigo);
+      if (index !== -1) {
+        this.turmasInscrito.splice(index, 1);
+      }
+      this.showModal = false;
+
+      if (this.perfil === "Aluno") {
+        const disciplinaUsuario = new DisciplinaUsuario(this.username, this.selectedDiscipline.id)
+
+        api
+          .delete('/aluno/disciplina',
+            disciplinaUsuario
+          )
+          .then((response) => {
+            console.log(response.data)
+          })
+          .catch((error) => {
+            console.log(error.response.data.message);
+          });
+      } else {
+        const turma = new Turma(this.selectedDiscipline.codigo);
+        console.log(turma)
+        api
+          .delete('/disciplina', turma
+          )
+          .then((response) => {
+            console.log(response.data)
+          })
+          .catch((error) => {
+            console.log(error.response.data.message);
+          });
+      }
+    }
   },
 };
 </script>
