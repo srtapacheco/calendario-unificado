@@ -75,6 +75,7 @@ ul {
 
 .custom-description-exam {
   font-weight: 700;
+  margin-right: 1rem;
 }
 
 .edit-button {
@@ -87,4 +88,10 @@ ul {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.delete-icon {
+  color: red;
+  cursor: pointer;
+  margin-left: 1rem;
 }
