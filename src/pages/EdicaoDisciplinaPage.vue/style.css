@@ -104,3 +104,6 @@ ul {
   margin-top: 1rem;
 }
 
+:deep(.v-field__append-inner) {
+  display: none !important;
+}
