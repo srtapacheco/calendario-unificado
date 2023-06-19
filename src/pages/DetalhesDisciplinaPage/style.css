@@ -20,11 +20,10 @@ body {
   top: 0;
   width: 100%;
   margin-top: 8em;
-  /* Ajuste a altura do app bar aqui */
 }
 
 .container {
-  max-width: 860px;
+  max-width: 650px;
   width: 100%;
   padding: 0 2rem;
   text-align: left;
@@ -49,9 +48,13 @@ p {
 }
 
 h2 {
-  font-weight: 700;
+
   color: #4F5873;
   text-align: left;
+}
+
+.custom-name-title {
+  font-weight: 700;
 }
 
 
@@ -72,4 +75,16 @@ ul {
 
 .custom-description-exam {
   font-weight: 700;
+}
+
+.edit-button {
+  margin-right: 8px;
+  background: #1ED96F;
+  color: #FFFFFF;
+}
+
+.code-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
