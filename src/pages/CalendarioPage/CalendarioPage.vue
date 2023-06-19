@@ -19,11 +19,11 @@
         </div>
       </div>
       <div class="calendar-header">
-        <div class="year">2023</div>
+        <div class="year">{{currentViewYear}}</div>
         <div class="month">
-          <v-icon class="month-icon">mdi-chevron-left</v-icon>
-          <h2>{{ months[todaysMonth].name }}</h2>
-          <v-icon class="month-icon">mdi-chevron-right</v-icon>
+          <v-icon @click="stepMonth(-1)" class="month-icon">mdi-chevron-left</v-icon>
+          <h2>{{ months[currentViewMonth].name }}</h2>
+          <v-icon @click="stepMonth(1)" class="month-icon">mdi-chevron-right</v-icon>
         </div>
       </div>
 
@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import { subDays, getDate, getDay, getMonth, getDaysInMonth } from 'date-fns'
+import { subDays, getDate, getDay, getYear, getMonth, getDaysInMonth, addMonths } from 'date-fns'
 import HeaderComponent from "@/components/HeaderComponent.vue";
 
 export default {
@@ -136,7 +136,9 @@ export default {
           order: 11
         }
       ],
-      todaysMonth: getMonth(new Date()),
+      currentViewDate: new Date(),
+      currentViewMonth: getMonth(new Date()),
+      currentViewYear: getYear(new Date()),
       daysInCalendarView: []
     }
   },
@@ -155,21 +157,18 @@ export default {
         toggleBtnClass.remove("selected")
       }
     },
-    loadCalendarDays() {
-      const today = new Date()
+    loadCalendarDaysInMonth(currentMonth1stDay) {
       const daysInCurrentMonth = []
 
-      for(let i = 1; i <= getDaysInMonth(today); i++) {
+      for(let i = 1; i <= getDaysInMonth(currentMonth1stDay); i++) {
         daysInCurrentMonth.push({
           day: i,
           isCurrentMonth: true
         })
       }
-      
-      const divsOfDays = document.querySelectorAll(".calendar-day")
 
-      const firstWeekDayInMonth = getDay(subDays(today, getDate(today) - 1))
-      const lastDayOfPreviousMonth = getDate(subDays(today, getDate(today)))
+      const firstWeekDayInMonth = getDay(subDays(currentMonth1stDay, getDate(currentMonth1stDay) - 1))
+      const lastDayOfPreviousMonth = getDate(subDays(currentMonth1stDay, getDate(currentMonth1stDay)))
 
       if (firstWeekDayInMonth > 0) {
         for(let i = 0; i < firstWeekDayInMonth; i++) {
@@ -190,22 +189,34 @@ export default {
       }
 
       this.daysInCalendarView = daysInCurrentMonth
+    },
+    stepMonth(step) {
+      if (step < 0 && this.currentViewMonth === 0) {
+        this.currentViewMonth = 11
+      }
+      else if (step > 0 && this.currentViewMonth === 11) {
+        this.currentViewMonth = 0
+      }
+      else {
+        this.currentViewMonth += step
+      }
 
-      console.log(divsOfDays)
-      console.log(`primeiro dia da semana: ${firstWeekDayInMonth}`)
-      console.log(`último dia do mês passado: ${lastDayOfPreviousMonth}`)
-      console.log(daysInCurrentMonth)
-    }
+      this.currentViewDate = addMonths(this.currentViewDate, step)
+      this.currentViewYear = getYear(this.currentViewDate)
+
+      console.log(this.currentViewDate)
+      this.loadCalendarDaysInMonth(this.currentViewDate)
+    },
   },
   mounted() {
-    this.loadCalendarDays()
+    this.loadCalendarDaysInMonth(this.currentMonth)
   },
 };
 </script>
 
 <style scoped>
 .container {
-  margin-top: 4rem;
+  margin: 8rem 0 2rem;
   width: 100%;
   display: flex;
   align-content: center;
@@ -312,6 +323,8 @@ main h1 {
 
 .month h2 {
   font-weight: 600;
+  width: 50%;
+  text-align: center;
 }
 
 .month .month-icon {
@@ -346,7 +359,7 @@ main h1 {
 /* Estilos para telas de celular */
 @media (max-width: 767px) {
   .container {
-    margin-top: 1rem;
+    margin: 6rem 0 2rem;
   }
 
   main {
