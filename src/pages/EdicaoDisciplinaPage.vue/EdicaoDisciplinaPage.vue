@@ -96,12 +96,8 @@ export default {
       ],
       newCourse: null,
       showModal: false,
+      examDateIdCounter: 3, // Contador para gerar identificadores únicos para as datas de prova
     };
-  },
-  computed: {
-    availableCourses() {
-      return this.filteredCourses.filter(course => !this.discipline.courses.some(c => c.id === course.id));
-    },
   },
   methods: {
     editCodDiscipline() {
@@ -132,6 +128,7 @@ export default {
       this.showModal = false;
     },
     addExam(newExam) {
+      newExam.id = this.examDateIdCounter++; // Atribui um identificador único para a nova data de prova
       this.discipline.examDates.push(newExam);
       this.closeAddExamModal();
     },
