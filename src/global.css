@@ -7,6 +7,7 @@
   --text-gray: #4F5873;
   --light-gray: #e3e8ee;
   --light-gray-text: #9FA6BA;
+  --transparent-gray: rgba(79, 88, 115, 0.1);
   --green-text: #17BF60;
   --transparent-green: rgba(18, 115, 87, 0.1);
   --negative-text: #F2295F;
