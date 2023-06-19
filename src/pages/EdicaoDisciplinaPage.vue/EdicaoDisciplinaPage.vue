@@ -49,25 +49,27 @@
             </li>
           </ul>
           <div class="code-container">
-            <v-btn v-if="userType === 'professor'" class="add-exam-button" @click="addExamDate">
-              <v-icon>mdi-plus-circle-outline</v-icon> 
-              Adicionar prova 
-              
+            <v-btn v-if="userType === 'professor'" class="add-exam-button" @click="openAddExamModal">
+              <v-icon>mdi-plus-circle-outline</v-icon>
+              Adicionar prova
             </v-btn>
           </div>
-      
         </div>
       </div>
+
+      <ModalNewExam v-model="showModal" @add-exam="addExam" @close-modal="closeAddExamModal" />
     </v-main>
   </v-app>
 </template>
 
 <script>
 import HeaderComponent from '../../components/HeaderComponent.vue';
+import ModalNewExam from '@/components/ModalNewExam.vue';
 
 export default {
   components: {
-    HeaderComponent
+    HeaderComponent,
+    ModalNewExam
   },
   data() {
     return {
@@ -93,6 +95,7 @@ export default {
         { id: 6, name: "Engenharia Eletrônica e de Computação" },
       ],
       newCourse: null,
+      showModal: false,
     };
   },
   computed: {
@@ -122,8 +125,17 @@ export default {
     deleteExamDate(examDateId) {
       this.discipline.examDates = this.discipline.examDates.filter(examDate => examDate.id !== examDateId);
     },
+    openAddExamModal() {
+      this.showModal = true;
+    },
+    closeAddExamModal() {
+      this.showModal = false;
+    },
+    addExam(newExam) {
+      this.discipline.examDates.push(newExam);
+      this.closeAddExamModal();
+    },
   },
 };
 </script>
-
 <style src="./style.css" scoped></style>
