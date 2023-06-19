@@ -37,7 +37,7 @@ const routes = [
     meta: { requireAuth: true }
   },
   {
-    path: '/disciplinas/detalhes',
+    path: '/disciplinas/detalhes/:codigoTurma',
     name: 'Detalhes Disciplina',
     component: DisciplinaDetalhesPage,
     meta: { requireAuth: true }

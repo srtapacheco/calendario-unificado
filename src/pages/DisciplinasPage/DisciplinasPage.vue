@@ -5,9 +5,9 @@
       <div class="external">
         <div class="container">
           <h2>Suas disciplinas</h2>
-          <div class="card-container"  @click="detalhesDisciplina()">
-            <v-card elevation="0" class="custom-card" v-for="turma in turmasInscrito" :key="turma.codigo">
-              <div class="card-content">
+          <div class="card-container" v-for="turma in turmasInscrito" :key="turma.codigo">
+            <v-card elevation="0" class="custom-card" @click="detalhesDisciplina(turma.codigo)">
+              <div class="card-content" >
                 <v-card-title class="custom-title-card">{{ turma.codigo }}</v-card-title>
                 <div class="delete-icon-container">
                   <v-icon class="custom-delete-icon" @click="toggleDeleteConfirmation(turma)"
@@ -132,10 +132,12 @@ export default {
         this.$router.push("./disciplinas/edicao")
       }
     },
-    detalhesDisciplina() {
-      this.$router.push("./disciplinas/detalhes")
+    detalhesDisciplina(codigoTurma) {
+      this.$router.push({
+        name: 'Detalhes Disciplina', params: { codigoTurma: codigoTurma }
+      })
     },
-  },
+  }
 };
 </script>
 

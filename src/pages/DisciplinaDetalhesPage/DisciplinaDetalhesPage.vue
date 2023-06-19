@@ -7,7 +7,7 @@
         <div class="container">
           <div class="code-container">
             <h2> {{ discipline.cod }} </h2>
-            <v-btn v-if="userType === 'professor'" class="edit-button" icon>
+            <v-btn v-if="userType === 'Professor'" class="edit-button" icon>
               <v-icon>mdi-pencil</v-icon>
             </v-btn>
           </div>
@@ -38,7 +38,7 @@ export default {
   },
   data() {
     return {
-      userType: 'professor', // Logica de visualizacao do botao de edicao. Só está disponivel para o perfil de professores
+      userType: window.localStorage.getItem('PERFIL'),
       discipline: {
         cod: "COS123",
         name: "Inteligencia Artificial",
