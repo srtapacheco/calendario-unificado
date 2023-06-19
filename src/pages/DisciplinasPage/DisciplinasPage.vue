@@ -20,7 +20,7 @@
           </div>
         </div>
       </div>
-      <ModalConfirmation :show-modal="showModal" @confirm-delete="deleteCardConfirmation" />
+      <ModalConfirmation :show-modal="showModal" @confirm-delete="deleteCardConfirmation()" />
       <v-btn class="add-button" icon>
         <v-icon class="custom-icon-add">mdi-plus</v-icon>
       </v-btn>
@@ -33,6 +33,8 @@
 import HeaderComponent from '../../components/HeaderComponent.vue';
 import ModalConfirmation from '@/components/ModalConfirmation.vue';
 import api from "@/plugins/vueAxios";
+import DisciplinaUsuario from '@/models/disciplinaUsuario.js'
+import Turma from '@/models/turma.js'
 
 export default {
   components: {
@@ -42,6 +44,7 @@ export default {
   data() {
     return {
       username: window.localStorage.getItem('NOME'),
+      perfil: window.localStorage.getItem('PERFIL'),
       turmasInscrito: [],
       drawer: false,
       showModal: false,
@@ -63,7 +66,6 @@ export default {
       .catch((error) => {
         console.log(error.response.data.message);
       });
-    this.turmasInscrito
   },
   methods: {
     deleteCard(turma) {
@@ -74,14 +76,6 @@ export default {
       // Implementar a lógica para quando um card for clicado
       console.log("Card clicado:", turma);
     },
-    deleteCardConfirmation() {
-      const index = this.turmasInscrito.findIndex(item => item.cod === this.selectedDiscipline.cod);
-      if (index !== -1) {
-        this.turmasInscrito.splice(index, 1);
-      }
-      this.showModal = false;
-    },
-
     cancelDeleteCard() {
       if (this.selectedDiscipline) {
         this.selectedDiscipline.showDeleteConfirmation = false;
@@ -94,11 +88,46 @@ export default {
         turma.showDeleteConfirmation = true;
         this.selectedDiscipline = turma;
         this.showModal = true;
+
       } else {
         turma.showDeleteConfirmation = false;
         this.cancelDeleteCard();
       }
     },
+    deleteCardConfirmation() {
+      const index = this.turmasInscrito.findIndex(item => item.codigo === this.selectedDiscipline.codigo);
+      if (index !== -1) {
+        this.turmasInscrito.splice(index, 1);
+      }
+      this.showModal = false;
+
+      if (this.perfil === "Aluno") {
+        const disciplinaUsuario = new DisciplinaUsuario(this.username, this.selectedDiscipline.id)
+
+        api
+          .delete('/aluno/disciplina',
+            disciplinaUsuario
+          )
+          .then((response) => {
+            console.log(response.data)
+          })
+          .catch((error) => {
+            console.log(error.response.data.message);
+          });
+      } else {
+        const turma = new Turma(this.selectedDiscipline.codigo);
+        console.log(turma)
+        api
+          .delete('/disciplina', turma
+          )
+          .then((response) => {
+            console.log(response.data)
+          })
+          .catch((error) => {
+            console.log(error.response.data.message);
+          });
+      }
+    }
   },
 };
 </script>
