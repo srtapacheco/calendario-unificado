@@ -1,4 +1,3 @@
- 
 html,
 body {
   align-items: center;
@@ -11,14 +10,14 @@ body {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  position: fixed;
+  position: absolute;
   top: 0;
   width: 100%;
-  margin-top: 8em; /* Ajuste a altura do app bar aqui */
+  margin-top: 8em;
 }
 
 .container {
-  max-width: 860px;
+  max-width: 660px;
   width: 100%;
   padding: 0 2rem;
 }
@@ -34,7 +33,7 @@ body {
   align-items: center;
 }
 
-.card-container{
+.card-container {
   margin-top: 3rem;
   width: 100%;
   text-align: left;
@@ -101,4 +100,20 @@ h2 {
     font-size: .8em;
   }
 }
-  
+
+
+.add-button {
+  position: fixed;
+  bottom: 20px;
+  right: 1.5rem;
+  z-index: 9999;
+  background-color: #1ED96F !important;
+  color: #FFFFFF !important;
+  width: 4rem !important; /* Ajuste o valor de acordo com o tamanho desejado */
+  height: 4rem !important; 
+
+}
+
+.custom-icon-add{
+  font-size: 2.5rem;
+}
