@@ -1,10 +1,10 @@
 <script setup>
-import InscricaoDisciplinaPage from './pages/InscricaoDisciplinaPage.vue/InscricaoDisciplinaPage.vue';
+import LoginPage from './pages/LoginPage/LoginPage.vue';
 
 </script>
 
 <template>
-  <InscricaoDisciplinaPage/>
+  <LoginPage/>
 </template>
 
 <style></style>
