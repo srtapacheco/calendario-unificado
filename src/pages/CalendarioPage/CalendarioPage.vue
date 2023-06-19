@@ -22,20 +22,26 @@
         <div class="year">2023</div>
         <div class="month">
           <v-icon class="month-icon">mdi-chevron-left</v-icon>
-          <h2>ABRIL</h2>
+          <h2>{{ months[todaysMonth].name }}</h2>
           <v-icon class="month-icon">mdi-chevron-right</v-icon>
         </div>
       </div>
+
       <div class="calendar-container">
         <div class="week-days" v-for="weekDay in weekDays" :key="weekDay.order" ><p>{{ weekDay.abrev }}</p></div>
-        <div class="calendar-day" :key="day" v-for="day in 35"></div>
+
+        <div class="calendar-day" :class="{inactive: !day.isCurrentMonth}" :key="day" v-for="day in daysInCalendarView"><p class="day-of-month">{{day.day}}</p><div class="exams"></div></div>
+        
       </div>
+
     </main>
   </div>
 </template>
 
 <script>
+import { subDays, getDate, getDay, getMonth, getDaysInMonth } from 'date-fns'
 import HeaderComponent from "@/components/HeaderComponent.vue";
+
 export default {
   components: {
     HeaderComponent,
@@ -79,11 +85,63 @@ export default {
           abrev: "DOM",
           order: 6
         }
-      ]
+      ],
+      months: [
+        {
+          name: "Janeiro",
+          order: 0
+        },
+        {
+          name: "Fevereiro",
+          order: 1
+        },
+        {
+          name: "Março",
+          order: 2
+        },
+        {
+          name: "Abril",
+          order: 3
+        },
+        {
+          name: "Maio",
+          order: 4
+        },
+        {
+          name: "Junho",
+          order: 5
+        },
+        {
+          name: "Julho",
+          order: 6
+        },
+        {
+          name: "Agosto",
+          order: 7
+        },
+        {
+          name: "Setembro",
+          order: 8
+        },
+        {
+          name: "Outubro",
+          order: 9
+        },
+        {
+          name: "Novembro",
+          order: 10
+        },
+        {
+          name: "Dezembro",
+          order: 11
+        }
+      ],
+      todaysMonth: getMonth(new Date()),
+      daysInCalendarView: []
     }
   },
   methods: {
-    toggle: function (event) {
+    toggle(event) {
       const toggleBtnClass = event.target.classList
 
       const toggleBtnClassArray = Array.from(toggleBtnClass)
@@ -97,7 +155,51 @@ export default {
         toggleBtnClass.remove("selected")
       }
     },
-  }
+    loadCalendarDays() {
+      const today = new Date()
+      const daysInCurrentMonth = []
+
+      for(let i = 1; i <= getDaysInMonth(today); i++) {
+        daysInCurrentMonth.push({
+          day: i,
+          isCurrentMonth: true
+        })
+      }
+      
+      const divsOfDays = document.querySelectorAll(".calendar-day")
+
+      const firstWeekDayInMonth = getDay(subDays(today, getDate(today) - 1))
+      const lastDayOfPreviousMonth = getDate(subDays(today, getDate(today)))
+
+      if (firstWeekDayInMonth > 0) {
+        for(let i = 0; i < firstWeekDayInMonth; i++) {
+          daysInCurrentMonth.unshift({
+            day: lastDayOfPreviousMonth-i,
+            isCurrentMonth: false
+          })
+        }
+      }
+
+      const daysOfNextMonthInCurrentMonthList = 35 - daysInCurrentMonth.length
+
+      for(let i = 1; i <= daysOfNextMonthInCurrentMonthList; i++) {
+        daysInCurrentMonth.push({
+          day: i,
+          isCurrentMonth: false
+        })
+      }
+
+      this.daysInCalendarView = daysInCurrentMonth
+
+      console.log(divsOfDays)
+      console.log(`primeiro dia da semana: ${firstWeekDayInMonth}`)
+      console.log(`último dia do mês passado: ${lastDayOfPreviousMonth}`)
+      console.log(daysInCurrentMonth)
+    }
+  },
+  mounted() {
+    this.loadCalendarDays()
+  },
 };
 </script>
 
@@ -231,9 +333,14 @@ main h1 {
 
 .calendar-day {
   width: 100%;
-  height: 5rem;
+  height: 6rem;
   background-color: var(--transparent-green);
   border-radius: 8px;
+  padding: .4rem .6rem;
+}
+
+.calendar-day.inactive {
+  background-color: var(--transparent-gray);
 }
 
 /* Estilos para telas de celular */
