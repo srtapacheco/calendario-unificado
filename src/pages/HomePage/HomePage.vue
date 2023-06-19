@@ -45,7 +45,7 @@ export default {
     const userType = window.localStorage.getItem('PERFIL');
 
     this.profileOptions = [
-      { opcao: userType === "aluno" ? "Calendário" : "Marcar prova", icon: "mdi mdi-calendar-plus-outline" },
+      { opcao: userType === "Aluno" ? "Calendário" : "Marcar prova", icon: "mdi mdi-calendar-plus-outline" },
       { opcao: "Disciplinas", icon: "mdi mdi-bulletin-board" },
     ];
   },
