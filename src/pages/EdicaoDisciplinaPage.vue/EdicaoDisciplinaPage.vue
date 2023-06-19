@@ -1,7 +1,6 @@
 <template>
   <v-app>
     <HeaderComponent />
-
     <v-main>
       <div class="external">
         <div class="container">
@@ -56,7 +55,6 @@
           </div>
         </div>
       </div>
-
       <ModalNewExam v-model="showModal" @add-exam="addExam" @close-modal="closeAddExamModal" />
     </v-main>
   </v-app>
@@ -99,6 +97,12 @@ export default {
       examDateIdCounter: 3, // Contador para gerar identificadores únicos para as datas de prova
     };
   },
+  computed: {
+  availableCourses() {
+    const registeredCourseNames = this.discipline.courses.map(course => course.name);
+    return this.filteredCourses.filter(course => !registeredCourseNames.includes(course.name));
+  },
+},
   methods: {
     editCodDiscipline() {
       this.isEditingCod = !this.isEditingCod;
