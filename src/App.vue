@@ -1,10 +1,9 @@
 <script setup>
-import DisciplinasPage from './pages/DisciplinasPage/DisciplinasPage.vue';
 
 </script>
 
 <template>
-  <DisciplinasPage/>
+  <router-view/>
 </template>
 
 <style></style>

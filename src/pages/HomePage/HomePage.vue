@@ -36,31 +36,26 @@ export default {
   components: { HeaderComponent },
   data() {
     return {
-      userName: "Fulano de tal",
+      userName: window.localStorage.getItem('NOME'),
       profileOptions: [],
       drawer: false,
     };
   },
   created() {
-    // Verificar o tipo de usuário
-    const userType = this.getUserType();
+    const userType = window.localStorage.getItem('PERFIL');
 
-    // Definir as opções do objeto profileOptions com base no tipo de usuário
     this.profileOptions = [
-      { opcao: userType === "aluno" ? "Calendário" : "Marcar prova", icon: "mdi mdi-calendar-plus-outline" },
+      { opcao: userType === "Aluno" ? "Calendário" : "Marcar prova", icon: "mdi mdi-calendar-plus-outline" },
       { opcao: "Disciplinas", icon: "mdi mdi-bulletin-board" },
     ];
   },
   methods: {
-    getUserType() {
-      // Lógica para obter o tipo de usuário
-      // Chamada a uma API
-      // Retornar o tipo de usuário identificado
-      return "aluno";
-    },
     cardClicked(option) {
-      // Lógica do clique no card
-      console.log("Card clicado:", option);
+      if (option.opcao === "Disciplinas"){
+        this.$router.push("./disciplinas")
+      } else {
+        this.$router.push("./calendario")
+      }
     },
     toggleDrawer() {
       this.drawer = !this.drawer;
