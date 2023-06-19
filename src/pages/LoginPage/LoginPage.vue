@@ -9,11 +9,11 @@
     <form @submit.prevent="login">
       <div class="input-container">
         <i class="fa-solid fa-user user-icon"></i>
-        <input type="text" v-model="user" placeholder="Digite seu usuário" required>
+        <input type="text" v-model="user.username" placeholder="Digite seu usuário" required>
       </div>
       <div class="input-container">
         <i class="fa-solid fa-lock password-icon"></i>
-        <input type="password" v-model="password" placeholder="Digite sua senha" required>
+        <input type="password" v-model="user.password" placeholder="Digite sua senha" required>
       </div>
       <div class="login-actions">
         <button type="submit" class="login-button">
@@ -22,29 +22,46 @@
         <a href="#" class="forgot-password">Esqueci minha senha</a>
       </div>
     </form>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
+import User from '@/models/user';
+import api from "@/plugins/vueAxios";
+
 export default {
   data() {
     return {
-      user: '',
-      password: ''
+      username: '',
+      password: '',
+      user: new User('', '')
     };
   },
   methods: {
-    login() {
-      // Lógica para autenticação do usuário
-      // Pode ser uma chamada a uma API, validação de credenciais, etc.
-      if (this.user === 'user@example.com' && this.password === '123456') {
-        // Login bem-sucedido, redirecionar para a página principal
-        this.$router.push('/dashboard');
-      } else {
-        // Exibir mensagem de erro ou tratar a falha no login
-        console.log('Credenciais inválidas');
-      }
+    async login() {
+      api
+        .post('/sessions', this.user)
+        .then((response) => {
+          this.usuario = response.data.userReturn.user;
+
+          this.email = this.usuario.email;
+          this.nome = this.usuario.username;
+          this.perfil = this.usuario.perfil;
+
+          window.localStorage.setItem("NOME", this.nome)
+          window.localStorage.setItem("EMAIL", this.email)
+          window.localStorage.setItem("PERFIL", this.perfil)
+          window.localStorage.setItem("TOKEN", response.data.session.token)
+
+          this.$router.push("./home")
+          console.log(response.data.userReturn.user);
+        })
+        .catch((error) => {
+          console.log(error.response.data.message);
+        });
     }
+
   }
 };
 </script>

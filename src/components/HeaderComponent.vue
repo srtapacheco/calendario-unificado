@@ -26,6 +26,15 @@ export default {
       type: Boolean,
       default: true
     },
+  },
+  methods: {
+    goBack(){
+      this.$router.push('/home');
+    },
+    logout(){
+      this.$router.push('/');
+    },
+
   }
 }
 </script>
