@@ -5,9 +5,9 @@
       <div class="external">
         <div class="container">
           <h2>Suas disciplinas</h2>
-          <div class="card-container">
-            <v-card elevation="0" class="custom-card" v-for="turma in turmasInscrito" :key="turma.codigo">
-              <div class="card-content">
+          <div class="card-container" v-for="turma in turmasInscrito" :key="turma.codigo">
+            <v-card elevation="0" class="custom-card" @click="detalhesDisciplina(turma.codigo)">
+              <div class="card-content" >
                 <v-card-title class="custom-title-card">{{ turma.codigo }}</v-card-title>
                 <div class="delete-icon-container">
                   <v-icon class="custom-delete-icon" @click="toggleDeleteConfirmation(turma)"
@@ -22,7 +22,7 @@
       </div>
       <ModalConfirmation :show-modal="showModal" @confirm-delete="deleteCardConfirmation()" />
       <v-btn class="add-button" icon>
-        <v-icon class="custom-icon-add">mdi-plus</v-icon>
+        <v-icon class="custom-icon-add" @click="addTurma()">mdi-plus</v-icon>
       </v-btn>
     </v-main>
   </v-app>
@@ -72,10 +72,6 @@ export default {
       this.selectedDiscipline = turma;
       this.showModal = true;
     },
-    cardClicked(turma) {
-      // Implementar a lógica para quando um card for clicado
-      console.log("Card clicado:", turma);
-    },
     cancelDeleteCard() {
       if (this.selectedDiscipline) {
         this.selectedDiscipline.showDeleteConfirmation = false;
@@ -103,11 +99,9 @@ export default {
 
       if (this.perfil === "Aluno") {
         const disciplinaUsuario = new DisciplinaUsuario(this.username, this.selectedDiscipline.id)
-
+        console.log(disciplinaUsuario)
         api
-          .delete('/aluno/disciplina',
-            disciplinaUsuario
-          )
+          .delete('/aluno/disciplina', disciplinaUsuario)
           .then((response) => {
             console.log(response.data)
           })
@@ -118,8 +112,7 @@ export default {
         const turma = new Turma(this.selectedDiscipline.codigo);
         console.log(turma)
         api
-          .delete('/disciplina', turma
-          )
+          .delete('/disciplina', turma)
           .then((response) => {
             console.log(response.data)
           })
@@ -127,8 +120,20 @@ export default {
             console.log(error.response.data.message);
           });
       }
-    }
-  },
+    },
+    addTurma() {
+      if (this.perfil === "Aluno") {
+        this.$router.push("/disciplinas/inscricao")
+      } else {
+        this.$router.push("/disciplinas/edicao")
+      }
+    },
+    detalhesDisciplina(codigoTurma) {
+      this.$router.push({
+        name: 'Detalhes Disciplina', params: { codigoTurma: codigoTurma }
+      })
+    },
+  }
 };
 </script>
 
