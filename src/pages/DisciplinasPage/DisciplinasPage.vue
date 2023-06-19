@@ -40,7 +40,7 @@ export default {
   },
   data() {
     return {
-      userName: "Fulano de tal",
+      userName: window.localStorage.getItem('NOME'),
       profileOptions: [
         {
           cod: "COS123",
