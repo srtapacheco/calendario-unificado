@@ -72,10 +72,6 @@ export default {
       this.selectedDiscipline = turma;
       this.showModal = true;
     },
-    cardClicked(turma) {
-      // Implementar a lógica para quando um card for clicado
-      console.log("Card clicado:", turma);
-    },
     cancelDeleteCard() {
       if (this.selectedDiscipline) {
         this.selectedDiscipline.showDeleteConfirmation = false;
@@ -127,9 +123,9 @@ export default {
     },
     addTurma() {
       if (this.perfil === "Aluno") {
-        this.$router.push("./disciplinas/inscricao")
+        this.$router.push("/disciplinas/inscricao")
       } else {
-        this.$router.push("./disciplinas/edicao")
+        this.$router.push("/disciplinas/edicao")
       }
     },
     detalhesDisciplina(codigoTurma) {
