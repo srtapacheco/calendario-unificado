@@ -12,6 +12,7 @@ body {
   align-items: center;
   color: #1ED96F;
   font-family: inherit;
+  padding-bottom: 5rem;
 }
 
 .title i {
@@ -21,101 +22,32 @@ body {
 
 
 input[type="text"],
-  input[type="password"] {
-    padding: 0.5rem;
-    padding-left: 20px;
-    box-sizing: border-box;
-    background: #FFFFFF;
-    margin-bottom: 10px;
-
-    border: 2px solid rgba(79, 88, 115, 0.1);
-    border-radius: 213px;
-  }
-
-/* Estilos para telas de celular */
-@media (max-width: 767px) {
-  .input-container {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1rem;
-  }
-
-  .input-container i {
-    margin-right: 0.5rem;
-  }
-
-  input[type="text"],
-  input[type="password"] {
-    width: 100%;
-  }
+input[type="password"] {
+  padding: 0.5rem;
+  padding-left: 20px;
+  box-sizing: border-box;
+  background: #FFFFFF;
+  margin-bottom: 10px;
+  width: 100%;
+  border: 2px solid rgba(79, 88, 115, 0.1);
+  border-radius: 213px;
 }
 
-/* Estilos para telas de tablet */
-@media (min-width: 768px) and (max-width: 1023px) {
-  .input-container {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1rem;
-  }
-
-  .input-container i {
-    margin-right: 0.5rem;
-  }
-
-  input[type="text"],
-  input[type="password"] {
-    width: 100%;
-  }
-}
-
-/* Estilos para telas de computador */
-@media (min-width: 1024px) {
-  .input-container {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1rem;
-  }
-
-  .input-container i {
-    margin-right: 1rem;
-  }
-
-  input[type="text"],
-  input[type="password"] {
-    width: 100%;
-  }
-}
 
 .login {
-  max-width: 880px;
   width: 100%;
   margin: 0 auto;
   padding: 50px;
   background: #F4F7F9;
   border-radius: 21px;
-  padding-top: 2%;
 }
 
-
-@media (max-width: 767px) {
-  .login {
-    max-width: 300px;
-    padding: 20px;
-  }
-}
-
-
-@media (min-width: 768px) {
-  .login {
-    max-width: 300px;
-  }
-}
 
 h2 {
   color: #17BF60;
   font-weight: 700;
   text-align: left;
-  padding-left: 2%;
+  margin-bottom: 1.5rem;
 }
 
 .login-actions {
@@ -125,13 +57,16 @@ h2 {
 }
 
 .login-button {
-  padding: 10px;
+  width: 130px;
   background: rgba(242, 41, 95, 0.1);
   color: #F2295F;
   border-radius: 213px;
   cursor: pointer;
   border: none;
   margin-right: 2rem;
+  color: #F2295F !important;
+  font-weight: 700;
+  padding: 10px;
 }
 
 .login-button i {
@@ -140,9 +75,7 @@ h2 {
 
 .forgot-password {
   font-size: 0.9rem;
-  font-style: normal;
   font-weight: 400;
-  line-height: 30px;
   color: #F2295F;
 }
 
@@ -155,17 +88,84 @@ h2 {
 
 }
 
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* Responsividade dos dispositivos */
+
 /* Estilos para telas de celular */
 @media (max-width: 767px) {
-  .calendar-icon{
+  .calendar-icon {
     font-size: 30px;
   }
+
+  .login {
+    max-width: 300px;
+  }
+
+  .input-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  .input-container i {
+    margin-right: 0.5rem;
+  }
+
+  .forgot-password {
+    font-size: 0.8rem;
+    word-wrap: break-word;
+    text-align: center;
+  }
+
+  .login-actions {
+    display: grid;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1rem;
+  }
+
+  .login-button {
+    width: 100%;
+    font-size: 0.8rem;
+    margin-bottom:  1rem;
+  }
 }
+
 
 /* Estilos para telas de tablet */
 @media (min-width: 768px) and (max-width: 1023px) {
   .calendar-icon {
     font-size: 40px;
+  }
+
+  .login {
+    max-width: 400px;
+  }
+ 
+  .input-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .input-container i {
+    margin-right: 0.5rem;
+  }
+
+  .forgot-password {
+    font-size: 0.8rem;
+  }
+
+  .login-button {
+    width: 100px;
+    font-size: 0.9rem;
+    
   }
 }
 
@@ -174,21 +174,21 @@ h2 {
   .calendar-icon {
     font-size: 60px;
   }
+
+  .login {
+    max-width: 450px;
+  }
+
+  .input-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  .input-container i {
+    margin-right: 1rem;
+  }
+
 }
 
 
-form {
-  display: flex;
-  flex-direction: column;
-}
-
-
-
-button {
-  padding: 10px;
-  background: rgba(242, 41, 95, 0.1);
-  color: #F2295F;
-  border-radius: 213px;
-  cursor: pointer;
-  border: none;
-}
