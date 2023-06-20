@@ -7,7 +7,7 @@
           <h2>Suas disciplinas</h2>
           <div class="card-container" v-for="turma in turmasInscrito" :key="turma.codigo">
             <v-card elevation="0" class="custom-card" @click="detalhesDisciplina(turma.codigo)">
-              <div class="card-content" >
+              <div class="card-content">
                 <v-card-title class="custom-title-card">{{ turma.codigo }}</v-card-title>
                 <div class="delete-icon-container">
                   <v-icon class="custom-delete-icon" @click.stop="toggleDeleteConfirmation(turma)"
@@ -32,7 +32,7 @@
 <script>
 import HeaderComponent from '../../components/HeaderComponent.vue';
 import ModalConfirmation from '@/components/ModalConfirmation.vue';
-import api from "@/plugins/vueAxios";
+import DisciplinaService from "@/services/disciplinaService";
 import DisciplinaUsuario from '@/models/disciplinaUsuario.js'
 import Turma from '@/models/turma.js'
 
@@ -53,12 +53,7 @@ export default {
     };
   },
   created() {
-    api
-      .get('/disciplina', {
-        params: {
-          username: this.username,
-        }
-      })
+    DisciplinaService.resgatarDisciplinas(this.username)
       .then((response) => {
         this.turmasInscrito = response.data;
         console.log(response.data)
@@ -101,8 +96,7 @@ export default {
         const disciplinaUsuario = new DisciplinaUsuario(this.username, this.selectedDiscipline.id);
         console.log(disciplinaUsuario);
 
-        api
-          .delete('/aluno/disciplina', { data: JSON.stringify(disciplinaUsuario), headers: { 'Content-Type': 'application/json' } })
+        DisciplinaService.removerDisciplinaAluno(disciplinaUsuario)
           .then((response) => {
             console.log(response.data);
           })
@@ -113,8 +107,7 @@ export default {
         const turma = new Turma(this.selectedDiscipline.codigo);
         console.log(turma);
 
-        api
-          .delete('/disciplina', { data: JSON.stringify(turma), headers: { 'Content-Type': 'application/json' } })
+        DisciplinaService.removerDisciplina(turma)
           .then((response) => {
             console.log(response.data);
           })
