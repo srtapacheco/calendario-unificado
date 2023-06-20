@@ -26,4 +26,12 @@ export default class DisciplinaService {
         return await api.post('/aluno/disciplina', { data: disciplinaAluno });
     }
 
+    static async resgatarCursos(nomeCurso) {
+        return await api.get('/curso', { params: { nome: nomeCurso, } });
+    }
+
+    static async criarDisciplina(disciplina) {
+        return await api.post('/disciplina', { data: disciplina });
+    }
+
 }
