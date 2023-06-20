@@ -1,4 +1,4 @@
-# Calendario Unificado
+# Calendario Unificado - Frontend
 
 > Projeto desenvolvido para a disciplina de Programação Avançada ministrada na Universidade Federal do Rio de Janeiro.
 
