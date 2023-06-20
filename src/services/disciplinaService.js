@@ -2,7 +2,7 @@ import api from "@/plugins/vueAxios";
 
 export default class DisciplinaService {
 
-    static async resgatarDisciplinas(nomeUsuario) {
+    static async resgatarDisciplinasUsuario(nomeUsuario) {
         return await api.get('/disciplina', { params: { username: nomeUsuario, } });
     }
 
@@ -11,11 +11,19 @@ export default class DisciplinaService {
     }
 
     static async removerDisciplinaAluno(disciplinaUsuario) {
-        return await api.delete('/aluno/disciplina', { data: JSON.stringify(disciplinaUsuario) });
+        return await api.delete('/aluno/disciplina', { data: disciplinaUsuario });
     }
 
     static async removerDisciplina(turma) {
-        return await api.delete('/disciplina', { data: JSON.stringify(turma) });
+        return await api.delete('/disciplina', { data: turma });
+    }
+
+    static async buscarDisciplinas(nomeUsuario) {
+        return await api.get('/disciplina/lista', { params: { username: nomeUsuario, } });
+    }
+
+    static async adicionarDisciplinaAoAluno(disciplinaAluno) {
+        return await api.post('/aluno/disciplina', { data: disciplinaAluno });
     }
 
 }

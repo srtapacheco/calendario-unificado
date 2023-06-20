@@ -53,7 +53,7 @@ export default {
     };
   },
   created() {
-    DisciplinaService.resgatarDisciplinas(this.username)
+    DisciplinaService.resgatarDisciplinasUsuario(this.username)
       .then((response) => {
         this.turmasInscrito = response.data;
         console.log(response.data)
