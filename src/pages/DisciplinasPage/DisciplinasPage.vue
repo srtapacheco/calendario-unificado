@@ -98,23 +98,25 @@ export default {
       this.showModal = false;
 
       if (this.perfil === "Aluno") {
-        const disciplinaUsuario = new DisciplinaUsuario(this.username, this.selectedDiscipline.id)
-        console.log(disciplinaUsuario)
+        const disciplinaUsuario = new DisciplinaUsuario(this.username, this.selectedDiscipline.id);
+        console.log(disciplinaUsuario);
+
         api
-          .delete('/aluno/disciplina', disciplinaUsuario)
+          .delete('/aluno/disciplina', { data: JSON.stringify(disciplinaUsuario), headers: { 'Content-Type': 'application/json' } })
           .then((response) => {
-            console.log(response.data)
+            console.log(response.data);
           })
           .catch((error) => {
             console.log(error.response.data.message);
           });
       } else {
         const turma = new Turma(this.selectedDiscipline.codigo);
-        console.log(turma)
+        console.log(turma);
+
         api
-          .delete('/disciplina', turma)
+          .delete('/disciplina', { data: JSON.stringify(turma), headers: { 'Content-Type': 'application/json' } })
           .then((response) => {
-            console.log(response.data)
+            console.log(response.data);
           })
           .catch((error) => {
             console.log(error.response.data.message);
