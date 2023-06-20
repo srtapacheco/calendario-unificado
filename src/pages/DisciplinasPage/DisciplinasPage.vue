@@ -10,7 +10,7 @@
               <div class="card-content" >
                 <v-card-title class="custom-title-card">{{ turma.codigo }}</v-card-title>
                 <div class="delete-icon-container">
-                  <v-icon class="custom-delete-icon" @click="toggleDeleteConfirmation(turma)"
+                  <v-icon class="custom-delete-icon" @click.stop="toggleDeleteConfirmation(turma)"
                     :class="{ 'disabled': turma.showDeleteConfirmation }">mdi-trash-can-outline</v-icon>
                 </div>
               </div>
