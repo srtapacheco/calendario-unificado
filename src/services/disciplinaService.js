@@ -6,6 +6,10 @@ export default class DisciplinaService {
         return await api.get('/disciplina', { params: { username: nomeUsuario, } });
     }
 
+    static async resgatarDetalhesDisciplina(codigoDisciplina) {
+        return await api.get('/disciplina/detalhes', { params: { codigo: codigoDisciplina, } });
+    }
+
     static async removerDisciplinaAluno(disciplinaUsuario) {
         return await api.delete('/aluno/disciplina', { data: JSON.stringify(disciplinaUsuario) });
     }

@@ -17,8 +17,9 @@
             <li v-for="curso in discipline.cursos" :key="curso">{{ curso }}</li>
           </ul>
           <h3>Provas</h3>
+          <span class="warn-null-exam" v-if="discipline.provas === null">Nenhuma prova marcada</span>
           <ul>
-            <li v-for="examDate in discipline.provas" :key="examDate.id">
+            <li v-for="examDate in discipline.provas" :key="examDate.id" >
               <span class="custom-description-exam">{{ examDate.nome }} &nbsp;</span>
               <span>{{ formatDate(examDate.data) }}</span>
             </li>
@@ -31,21 +32,15 @@
 
 <script>
 import HeaderComponent from '../../components/HeaderComponent.vue';
-import api from "@/plugins/vueAxios";
+import DisciplinaService from '@/services/disciplinaService';
 import moment from 'moment'
 
 export default {
-  props: ['codigoTurma'],
   components: {
     HeaderComponent
   },
   created() {
-    api
-      .get('/disciplina/detalhes', {
-        params: {
-          codigo: 'mac113',
-        }
-      })
+    DisciplinaService.resgatarDetalhesDisciplina(this.codigoTurma)
       .then((response) => {
         this.discipline = response.data[0];
         console.log(response.data)
@@ -57,7 +52,8 @@ export default {
   data() {
     return {
       userType: window.localStorage.getItem('PERFIL'),
-      discipline: []
+      discipline: [],
+      codigoTurma: this.$route.params.codigoTurma,
     };
   },
   methods: { 
