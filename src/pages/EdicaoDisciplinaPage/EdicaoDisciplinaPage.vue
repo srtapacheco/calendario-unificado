@@ -151,7 +151,7 @@ export default {
       this.closeAddExamModal();
     },
     createDiscipline() {
-      if (this.codigo === 'new'){
+      if (this.codigoTurma === 'new'){
         DisciplinaService.criarDisciplina(this.discipline)
         .then((response) => {
           console.log(response.data);
