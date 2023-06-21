@@ -150,6 +150,7 @@ export default {
       .catch((error) => {
         console.log(error.response.data.message);
       });
+      this.$router.push("/disciplinas");
     }
   },
 };
