@@ -5,6 +5,7 @@ import DisciplinasPage from '../pages/DisciplinasPage/DisciplinasPage.vue'
 import CalendarioPage from '../pages/CalendarioPage/CalendarioPage.vue'
 import InscricaoDisciplinaPage from '../pages/InscricaoDisciplinaPage/InscricaoDisciplinaPage.vue'
 import DisciplinaDetalhesPage from '../pages/DisciplinaDetalhesPage/DisciplinaDetalhesPage.vue'
+import EdicaoDisciplinaPage from '../pages/EdicaoDisciplinaPage/EdicaoDisciplinaPage.vue'
 
 const routes = [
   {
@@ -41,7 +42,13 @@ const routes = [
     name: 'Detalhes Disciplina',
     component: DisciplinaDetalhesPage,
     meta: { requireAuth: true }
-  }
+  },
+  {
+    path: '/disciplinas/edicao/:codigoTurma',
+    name: 'Editar Disciplina',
+    component: EdicaoDisciplinaPage,
+    meta: { requireAuth: true }
+  },
 ]
 
 const router = createRouter({

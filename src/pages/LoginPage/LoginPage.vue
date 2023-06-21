@@ -30,7 +30,7 @@
 
 <script>
 import User from '@/models/user';
-import api from "@/plugins/vueAxios";
+import LoginService from "@/services/loginService";
 
 export default {
   data() {
@@ -42,8 +42,7 @@ export default {
   },
   methods: {
     async login() {
-      api
-        .post('/sessions', this.user)
+      LoginService.login(this.user)
         .then((response) => {
           this.usuario = response.data.userReturn.user;
 

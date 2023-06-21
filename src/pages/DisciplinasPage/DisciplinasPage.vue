@@ -7,10 +7,10 @@
           <h2>Suas disciplinas</h2>
           <div class="card-container" v-for="turma in turmasInscrito" :key="turma.codigo">
             <v-card elevation="0" class="custom-card" @click="detalhesDisciplina(turma.codigo)">
-              <div class="card-content" >
+              <div class="card-content">
                 <v-card-title class="custom-title-card">{{ turma.codigo }}</v-card-title>
                 <div class="delete-icon-container">
-                  <v-icon class="custom-delete-icon" @click="toggleDeleteConfirmation(turma)"
+                  <v-icon class="custom-delete-icon" @click.stop="toggleDeleteConfirmation(turma)"
                     :class="{ 'disabled': turma.showDeleteConfirmation }">mdi-trash-can-outline</v-icon>
                 </div>
               </div>
@@ -32,7 +32,7 @@
 <script>
 import HeaderComponent from '../../components/HeaderComponent.vue';
 import ModalConfirmation from '@/components/ModalConfirmation.vue';
-import api from "@/plugins/vueAxios";
+import DisciplinaService from "@/services/disciplinaService";
 import DisciplinaUsuario from '@/models/disciplinaUsuario.js'
 import Turma from '@/models/turma.js'
 
@@ -53,12 +53,7 @@ export default {
     };
   },
   created() {
-    api
-      .get('/disciplina', {
-        params: {
-          username: this.username,
-        }
-      })
+    DisciplinaService.resgatarDisciplinasUsuario(this.username)
       .then((response) => {
         this.turmasInscrito = response.data;
         console.log(response.data)
@@ -98,23 +93,23 @@ export default {
       this.showModal = false;
 
       if (this.perfil === "Aluno") {
-        const disciplinaUsuario = new DisciplinaUsuario(this.username, this.selectedDiscipline.id)
-        console.log(disciplinaUsuario)
-        api
-          .delete('/aluno/disciplina', disciplinaUsuario)
+        const disciplinaUsuario = new DisciplinaUsuario(this.username, this.selectedDiscipline.id);
+        console.log(disciplinaUsuario);
+
+        DisciplinaService.removerDisciplinaAluno(disciplinaUsuario)
           .then((response) => {
-            console.log(response.data)
+            console.log(response.data);
           })
           .catch((error) => {
             console.log(error.response.data.message);
           });
       } else {
         const turma = new Turma(this.selectedDiscipline.codigo);
-        console.log(turma)
-        api
-          .delete('/disciplina', turma)
+        console.log(turma);
+
+        DisciplinaService.removerDisciplina(turma)
           .then((response) => {
-            console.log(response.data)
+            console.log(response.data);
           })
           .catch((error) => {
             console.log(error.response.data.message);
@@ -125,7 +120,7 @@ export default {
       if (this.perfil === "Aluno") {
         this.$router.push("/disciplinas/inscricao")
       } else {
-        this.$router.push("/disciplinas/edicao")
+        this.$router.push({name: 'Editar Disciplina', params: { codigoTurma: 'new'}})
       }
     },
     detalhesDisciplina(codigoTurma) {
