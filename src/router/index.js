@@ -44,7 +44,7 @@ const routes = [
     meta: { requireAuth: true }
   },
   {
-    path: '/disciplinas/edicao',
+    path: '/disciplinas/edicao/:codigoTurma',
     name: 'Editar Disciplina',
     component: EdicaoDisciplinaPage,
     meta: { requireAuth: true }

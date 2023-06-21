@@ -120,7 +120,7 @@ export default {
       if (this.perfil === "Aluno") {
         this.$router.push("/disciplinas/inscricao")
       } else {
-        this.$router.push("/disciplinas/edicao")
+        this.$router.push({name: 'Editar Disciplina', params: { codigoTurma: 'new'}})
       }
     },
     detalhesDisciplina(codigoTurma) {
