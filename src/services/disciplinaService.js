@@ -34,4 +34,8 @@ export default class DisciplinaService {
         return await api.post('/disciplina', disciplina);
     }
 
+    static async atualizarDisciplina(disciplina) {
+        return await api.put('/disciplina', disciplina);
+    }
+
 }

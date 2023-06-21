@@ -151,13 +151,24 @@ export default {
       this.closeAddExamModal();
     },
     createDiscipline() {
-      DisciplinaService.criarDisciplina(this.discipline)
+      if (this.codigo === 'new'){
+        DisciplinaService.criarDisciplina(this.discipline)
         .then((response) => {
           console.log(response.data);
         })
         .catch((error) => {
           console.log(error.response.data.message);
         });
+      } else {
+        DisciplinaService.atualizarDisciplina(this.discipline)
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error.response.data.message);
+        });
+      }
+      
       this.$router.push("/disciplinas");
     }
   },
