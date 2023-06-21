@@ -21,7 +21,7 @@
 
           <h3>Cursos ofertados</h3>
           <ul>
-            <li v-for="course in discipline.courses" :key="course.id">
+            <li v-for="course in discipline.cursos" :key="course.id">
               <span>{{ course.nome }}</span>
               <v-icon class="delete-icon" @click="deleteCourse(course.id)">
                 mdi-trash-can-outline
@@ -39,7 +39,7 @@
 
           <h3>Provas</h3>
           <ul>
-            <li v-for="examDate in discipline.examDates" :key="examDate.id">
+            <li v-for="examDate in discipline.provas" :key="examDate.id">
               <span class="custom-description-exam">{{ examDate.description }}</span>
               <span>{{ examDate.date }}</span>
               <v-icon class="delete-icon" @click="deleteExamDate(examDate.id)">
@@ -55,9 +55,9 @@
           </div>
 
           <v-btn class="add-exam-button" @click="createDiscipline">
-              <v-icon>mdi-plus-circle-outline</v-icon>
-              Salvar
-            </v-btn>
+            <v-icon>mdi-plus-circle-outline</v-icon>
+            Salvar
+          </v-btn>
         </div>
       </div>
       <ModalNewExam v-model="showModal" @add-exam="addExam" @close-modal="closeAddExamModal" />
@@ -77,13 +77,14 @@ export default {
   },
   data() {
     return {
+      codigoTurma: this.$route.params.codigoTurma,
       isEditingCod: false,
       isEditingName: false,
       discipline: {
         codigo: null,
         nome: null,
-        courses: [],
-        examDates: [],
+        cursos: [],
+        provas: [],
       },
       filteredCourses: [],
       newCourse: null,
@@ -93,7 +94,7 @@ export default {
   },
   computed: {
     availableCourses() {
-      const registeredCourseNames = this.discipline.courses.map(course => course.nome);
+      const registeredCourseNames = this.discipline.cursos.map(course => course.nome);
       return this.filteredCourses.filter(course => !registeredCourseNames.includes(course.nome));
     },
   },
@@ -107,7 +108,14 @@ export default {
         console.log(error.response.data.message);
       });
 
-    return this.filteredCourses;
+    DisciplinaService.resgatarDetalhesDisciplina(this.codigoTurma)
+      .then((response) => {
+        this.discipline = response.data[0];
+      })
+      .catch((error) => {
+        console.log(error.response.data.message);
+      });
+
   },
   methods: {
     editCodDiscipline() {
@@ -142,14 +150,14 @@ export default {
       this.discipline.examDates.push(newExam);
       this.closeAddExamModal();
     },
-    createDiscipline(){
+    createDiscipline() {
       DisciplinaService.criarDisciplina(this.discipline)
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.log(error.response.data.message);
-      });
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error.response.data.message);
+        });
       this.$router.push("/disciplinas");
     }
   },
