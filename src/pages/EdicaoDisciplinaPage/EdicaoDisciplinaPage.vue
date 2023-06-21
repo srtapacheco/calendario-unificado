@@ -5,54 +5,59 @@
       <div class="external">
         <div class="container">
           <div class="code-container">
-            <h2 v-if="!isEditingCod">{{ discipline.cod }}</h2>
-            <v-text-field v-else v-model="discipline.cod"></v-text-field>
-            <v-btn v-if="userType === 'professor'" class="edit-button" icon @click="editCodDiscipline">
+            <h2 v-if="!isEditingCod">{{ discipline.codigo != null ? discipline.codigo : "" }}</h2>
+            <v-text-field v-else v-model="discipline.codigo" label="Código da disciplina"></v-text-field>
+            <v-btn class="edit-button" icon @click="editCodDiscipline">
               <v-icon>mdi-pencil</v-icon>
             </v-btn>
           </div>
           <div class="code-container">
-            <h2 v-if="!isEditingName" class="custom-name-title">{{ discipline.name }}</h2>
-            <v-text-field v-else v-model="discipline.name"></v-text-field>
-            <v-btn v-if="userType === 'professor'" class="edit-button" icon @click="editNameDiscipline">
+            <h2 v-if="!isEditingName" class="custom-name-title">{{ discipline.nome != null ? discipline.nome : "" }}</h2>
+            <v-text-field v-else v-model="discipline.nome" label="Nome da disciplina"></v-text-field>
+            <v-btn class="edit-button" icon @click="editNameDiscipline">
               <v-icon>mdi-pencil</v-icon>
             </v-btn>
           </div>
 
           <h3>Cursos ofertados</h3>
           <ul>
-            <li v-for="course in discipline.courses" :key="course.id">
-              <span>{{ course.name }}</span>
-              <v-icon v-if="userType === 'professor'" class="delete-icon" @click="deleteCourse(course.id)">
+            <li v-for="course in discipline.cursos" :key="course.id">
+              <span>{{ course.nome }}</span>
+              <v-icon class="delete-icon" @click="deleteCourse(course.id)">
                 mdi-trash-can-outline
               </v-icon>
             </li>
           </ul>
 
           <div class="code-container">
-            <v-autocomplete v-model="newCourse" :items="availableCourses" item-title="name" item-value="id"
+            <v-autocomplete v-model="newCourse" :items="availableCourses" item-title="nome" item-value="id"
               label="Buscar curso" clearable></v-autocomplete>
-            <v-btn v-if="userType === 'professor'" class="edit-button" icon @click="addCourse">
+            <v-btn class="edit-button" icon @click="addCourse">
               <v-icon>mdi-plus</v-icon>
             </v-btn>
           </div>
 
           <h3>Provas</h3>
           <ul>
-            <li v-for="examDate in discipline.examDates" :key="examDate.id">
+            <li v-for="examDate in discipline.provas" :key="examDate.id">
               <span class="custom-description-exam">{{ examDate.description }}</span>
               <span>{{ examDate.date }}</span>
-              <v-icon v-if="userType === 'professor'" class="delete-icon" @click="deleteExamDate(examDate.id)">
+              <v-icon class="delete-icon" @click="deleteExamDate(examDate.id)">
                 mdi-trash-can-outline
               </v-icon>
             </li>
           </ul>
           <div class="code-container">
-            <v-btn v-if="userType === 'professor'" class="add-exam-button" @click="openAddExamModal">
+            <v-btn class="add-exam-button" @click="openAddExamModal">
               <v-icon>mdi-plus-circle-outline</v-icon>
               Adicionar prova
             </v-btn>
           </div>
+
+          <v-btn class="add-exam-button" @click="createDiscipline">
+            <v-icon>mdi-plus-circle-outline</v-icon>
+            Salvar
+          </v-btn>
         </div>
       </div>
       <ModalNewExam v-model="showModal" @add-exam="addExam" @close-modal="closeAddExamModal" />
@@ -63,6 +68,7 @@
 <script>
 import HeaderComponent from '../../components/HeaderComponent.vue';
 import ModalNewExam from '@/components/ModalNewExam.vue';
+import DisciplinaService from "@/services/disciplinaService";
 
 export default {
   components: {
@@ -71,38 +77,46 @@ export default {
   },
   data() {
     return {
-      userType: 'professor',
+      codigoTurma: this.$route.params.codigoTurma,
       isEditingCod: false,
       isEditingName: false,
       discipline: {
-        cod: "COS123",
-        name: "Inteligencia Artificial",
-        courses: [
-          { id: 1, name: "Engenharia Eletrônica e de Computação" },
-          { id: 2, name: "Engenharia de Computação e Informação" },
-        ],
-        examDates: [
-          { id: 1, description: "P1", date: "22/05/2023" },
-          { id: 2, description: "P2", date: "20/07/2023" },
-        ],
+        codigo: null,
+        nome: null,
+        cursos: [],
+        provas: [],
       },
-      filteredCourses: [
-        { id: 3, name: "Engenharia Mecânica" },
-        { id: 4, name: "Engenharia Elétrica" },
-        { id: 5, name: "Ciência da Computação" },
-        { id: 6, name: "Engenharia Eletrônica e de Computação" },
-      ],
+      filteredCourses: [],
       newCourse: null,
       showModal: false,
       examDateIdCounter: 3, // Contador para gerar identificadores únicos para as datas de prova
     };
   },
   computed: {
-  availableCourses() {
-    const registeredCourseNames = this.discipline.courses.map(course => course.name);
-    return this.filteredCourses.filter(course => !registeredCourseNames.includes(course.name));
+    availableCourses() {
+      const registeredCourseNames = this.discipline.cursos.map(course => course.nome);
+      return this.filteredCourses.filter(course => !registeredCourseNames.includes(course.nome));
+    },
   },
-},
+  created() {
+    DisciplinaService.resgatarCursos('')
+      .then((response) => {
+        this.filteredCourses = response.data;
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error.response.data.message);
+      });
+
+    DisciplinaService.resgatarDetalhesDisciplina(this.codigoTurma)
+      .then((response) => {
+        this.discipline = response.data[0];
+      })
+      .catch((error) => {
+        console.log(error.response.data.message);
+      });
+
+  },
   methods: {
     editCodDiscipline() {
       this.isEditingCod = !this.isEditingCod;
@@ -136,6 +150,16 @@ export default {
       this.discipline.examDates.push(newExam);
       this.closeAddExamModal();
     },
+    createDiscipline() {
+      DisciplinaService.criarDisciplina(this.discipline)
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error.response.data.message);
+        });
+      this.$router.push("/disciplinas");
+    }
   },
 };
 </script>

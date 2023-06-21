@@ -11,15 +11,16 @@
             <v-card class="custom-card" elevation="0" v-for="course in filteredCourses" :key="course.id">
               <v-card-title>
                 <div class="course-info">
-                  <span class="course-code">{{ course.code }}</span>
-                  <v-btn @click="enrollCourse(course)" :class="course.isEnrolled ? 'custom-enrolled-button' : 'custom-unenrolled-button'" small>
-                    <v-icon>{{ course.isEnrolled ? 'mdi-check-circle-outline' : 'mdi-plus-circle-outline' }}</v-icon>
-                    {{ course.isEnrolled ? 'Inscrito' : 'Inscrever-se' }}
+                  <span class="course-code">{{ course.codigo }}</span>
+                  <v-btn @click="enrollCourse(course)"
+                    :class="course.isAlunoInscrito ? 'custom-enrolled-button' : 'custom-unenrolled-button'" small>
+                    <v-icon>{{ course.isAlunoInscrito ? 'mdi-check-circle-outline' : 'mdi-plus-circle-outline' }}</v-icon>
+                    {{ course.isAlunoInscrito ? 'Inscrito' : 'Inscrever-se' }}
                   </v-btn>
                 </div>
               </v-card-title>
               <v-card-text>
-                <p class="course-name">{{ course.name }}</p>
+                <p class="course-name">{{ course.nome }}</p>
               </v-card-text>
             </v-card>
           </div>
@@ -31,6 +32,7 @@
 
 <script>
 import HeaderComponent from '../../components/HeaderComponent.vue';
+import DisciplinaService from "@/services/disciplinaService";
 
 export default {
   components: {
@@ -39,40 +41,53 @@ export default {
   data() {
     return {
       searchTerm: '',
-      courses: [
-        { id: 1, name: 'Inteligência Artificial', code: 'COS123', isEnrolled: true },
-        { id: 2, name: 'Introdução à Programação', code: 'COS124', isEnrolled: false },
-        { id: 3, name: 'Banco de Dados', code: 'COS125', isEnrolled: true },
-        { id: 4, name: 'Redes de Computadores', code: 'MAC112', isEnrolled: false },
-        { id: 5, name: 'Algoritmos e Estruturas de Dados', code: 'EEL232', isEnrolled: true },
-        { id: 6, name: 'Lógica Matemática', code: 'COS127', isEnrolled: false },
-      ]
+      courses: [],
+      username: window.localStorage.getItem('NOME'),
+      turmasInscrito: []
     };
   },
   computed: {
     filteredCourses() {
       if (this.searchTerm) {
         const searchTermLower = this.searchTerm.toLowerCase();
-        return this.courses.filter(course => 
-          course.name.toLowerCase().includes(searchTermLower) ||
-          course.code.toLowerCase().includes(searchTermLower)
+        return this.courses.filter(course =>
+          course.nome.toLowerCase().includes(searchTermLower) ||
+          course.codigo.toLowerCase().includes(searchTermLower)
         );
       }
       return this.courses;
     }
   },
+  created() {
+    DisciplinaService.buscarDisciplinas(this.username)
+      .then((response) => {
+        this.courses = response.data;
+      })
+      .catch((error) => {
+        console.log(error.response.data.message);
+      });
+
+    return this.courses;
+  },
   methods: {
     enrollCourse(course) {
-      // Verifica se o curso já está inscrito
-      if (course.isEnrolled) {
+      if (course.isAlunoInscrito) {
         console.log('Curso já está inscrito:', course);
         return; // Não faz nada se já estiver inscrito
       }
-      
+      const alunoDisciplina = {username:this.username, disciplinaId: course.id};
+      console.log(alunoDisciplina);
       // Realiza a inscrição no curso - Implementar logica para envio dos dados de inscricao
-      course.isEnrolled = true;
-      console.log('Inscrição na disciplina:', course);
-    }
+      DisciplinaService.adicionarDisciplinaAoAluno(alunoDisciplina)
+        .then(() => {
+          course.isAlunoInscrito = true;
+          console.log('Inscrição na disciplina:', course);
+        })
+        .catch((error) => {
+          console.log(error.response.data.message);
+        });
+
+    },
   }
 };
 </script>
