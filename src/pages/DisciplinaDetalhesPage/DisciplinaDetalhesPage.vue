@@ -7,14 +7,14 @@
         <div class="container">
           <div class="code-container">
             <h2> {{ discipline.codigo }} </h2>
-            <v-btn v-if="userType === 'Professor'" class="edit-button" icon>
+            <v-btn v-if="userType === 'Professor'" class="edit-button" icon @click="editDiscipline">
               <v-icon>mdi-pencil</v-icon>
             </v-btn>
           </div>
           <h2 class="custom-name-title">{{ discipline.nome }}</h2>
           <h3>Cursos ofertados</h3>
           <ul>
-            <li v-for="curso in discipline.cursos" :key="curso">{{ curso }}</li>
+            <li v-for="curso in discipline.cursos" :key="curso.id">{{ curso.nome }}</li>
           </ul>
           <h3>Provas</h3>
           <span class="warn-null-exam" v-if="discipline.provas === null">Nenhuma prova marcada</span>
@@ -62,6 +62,9 @@ export default {
            return moment(String(value)).format('DD/MM/YYYY')
           }
       },
+      editDiscipline(){
+        this.$router.push({name: 'Editar Disciplina', params: { codigoTurma: this.codigoTurma }});
+      }
    },
 };
 </script>
