@@ -5,9 +5,9 @@
       <div class="external">
         <div class="container">
           <div class="code-container">
-            <h2 v-if="!isEditingCod">{{ discipline.codigo != null ? discipline.codigo : "" }}</h2>
+            <h2 v-if="!isEditingCod||!isNewDiscipline">{{ discipline.codigo != null ? discipline.codigo : "" }}</h2>
             <v-text-field v-else v-model="discipline.codigo" label="Código da disciplina"></v-text-field>
-            <v-btn class="edit-button" icon @click="editCodDiscipline">
+            <v-btn class="edit-button" icon @click="editCodDiscipline" v-if="isNewDiscipline">
               <v-icon>mdi-pencil</v-icon>
             </v-btn>
           </div>
@@ -77,6 +77,7 @@ export default {
   },
   data() {
     return {
+      username: window.localStorage.getItem('NOME'),
       codigoTurma: this.$route.params.codigoTurma,
       isEditingCod: false,
       isEditingName: false,
@@ -86,10 +87,12 @@ export default {
         cursos: [],
         provas: [],
       },
+      newDiscipline: [],
       filteredCourses: [],
       newCourse: null,
       showModal: false,
       examDateIdCounter: 3, // Contador para gerar identificadores únicos para as datas de prova
+      isNewDiscipline: null,
     };
   },
   computed: {
@@ -115,6 +118,10 @@ export default {
         console.log(error.response.data.message);
       });
 
+      if (this.codigoTurma === 'new'){
+        this.isNewDiscipline = true;
+      }
+
   },
   methods: {
     editCodDiscipline() {
@@ -127,13 +134,13 @@ export default {
       if (this.newCourse) {
         const selectedCourse = this.filteredCourses.find(course => course.id === this.newCourse);
         if (selectedCourse) {
-          this.discipline.courses.push(selectedCourse);
+          this.discipline.cursos.push(selectedCourse);
           this.newCourse = null;
         }
       }
     },
     deleteCourse(courseId) {
-      this.discipline.courses = this.discipline.courses.filter(course => course.id !== courseId);
+      this.discipline.cursos = this.discipline.cursos.filter(course => course.id !== courseId);
     },
     deleteExamDate(examDateId) {
       this.discipline.examDates = this.discipline.examDates.filter(examDate => examDate.id !== examDateId);
@@ -150,24 +157,26 @@ export default {
       this.closeAddExamModal();
     },
     createDiscipline() {
-      if (this.codigoTurma === 'new'){
-        DisciplinaService.criarDisciplina(this.discipline)
-        .then((response) => {
-          console.log(response.data);
-        })
-        .catch((error) => {
-          console.log(error.response.data.message);
-        });
+      if (this.isNewDiscipline) {
+        this.newDiscipline = this.discipline;
+        this.newDiscipline.username = this.username;
+        DisciplinaService.criarDisciplina(this.newDiscipline)
+          .then((response) => {
+            console.log("Disciplina criada: ", response.data.nome);
+          })
+          .catch((error) => {
+            console.log(error.response.data.message);
+          });
       } else {
         DisciplinaService.atualizarDisciplina(this.discipline)
-        .then((response) => {
-          console.log(response.data);
-        })
-        .catch((error) => {
-          console.log(error.response.data.message);
-        });
+          .then((response) => {
+            console.log("Disciplina atualizada: ", response.data.nome);
+          })
+          .catch((error) => {
+            console.log(error.response.data.message);
+          });
       }
-      
+
       this.$router.push("/disciplinas");
     }
   },
