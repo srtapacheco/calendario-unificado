@@ -56,7 +56,6 @@ export default {
           window.localStorage.setItem("TOKEN", response.data.session.token)
 
           this.$router.push("./home")
-          console.log(response.data.userReturn.user);
         })
         .catch((error) => {
           console.log(error.response.data.message);

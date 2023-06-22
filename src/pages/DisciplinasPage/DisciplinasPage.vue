@@ -56,7 +56,6 @@ export default {
     DisciplinaService.resgatarDisciplinasUsuario(this.username)
       .then((response) => {
         this.turmasInscrito = response.data;
-        console.log(response.data)
       })
       .catch((error) => {
         console.log(error.response.data.message);
@@ -94,22 +93,20 @@ export default {
 
       if (this.perfil === "Aluno") {
         const disciplinaUsuario = new DisciplinaUsuario(this.username, this.selectedDiscipline.id);
-        console.log(disciplinaUsuario);
 
         DisciplinaService.removerDisciplinaAluno(disciplinaUsuario)
           .then((response) => {
-            console.log(response.data);
+            console.log("Disciplina removida:", response.data.nome);
           })
           .catch((error) => {
             console.log(error.response.data.message);
           });
       } else {
         const turma = new Turma(this.selectedDiscipline.codigo);
-        console.log(turma);
 
         DisciplinaService.removerDisciplina(turma)
           .then((response) => {
-            console.log(response.data);
+            console.log("Disciplina removida:", response.data.nome);
           })
           .catch((error) => {
             console.log(error.response.data.message);

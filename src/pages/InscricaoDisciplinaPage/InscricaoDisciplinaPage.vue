@@ -73,15 +73,14 @@ export default {
     enrollCourse(course) {
       if (course.isAlunoInscrito) {
         console.log('Curso já está inscrito:', course);
-        return; // Não faz nada se já estiver inscrito
+        return;
       }
-      const alunoDisciplina = {username:this.username, disciplinaId: course.id};
-      console.log(alunoDisciplina);
-      // Realiza a inscrição no curso - Implementar logica para envio dos dados de inscricao
+      const alunoDisciplina = { username: this.username, disciplinaId: course.id };
+
       DisciplinaService.adicionarDisciplinaAoAluno(alunoDisciplina)
         .then(() => {
           course.isAlunoInscrito = true;
-          console.log('Inscrição na disciplina:', course);
+          console.log('Inscrição na disciplina:', course.nome);
         })
         .catch((error) => {
           console.log(error.response.data.message);
