@@ -28,10 +28,16 @@ export default {
     },
   },
   methods: {
-    goBack(){
-      this.$router.push('/home');
+    goBack() {
+      if (this.$route.name === 'Detalhes Disciplina'
+        || this.$route.name === 'Editar Disciplina'
+        || this.$route.name === 'Inscricao') {
+        this.$router.push('/disciplinas');
+      } else {
+        this.$router.push('/home');
+      }
     },
-    logout(){
+    logout() {
       this.$router.push('/');
     },
 
@@ -40,40 +46,41 @@ export default {
 </script>
 
 <style scoped>
- header {
-    background-color: #010B40;
-    padding: .5rem 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    width: 100%;
-    z-index: 999;
-  }
+header {
+  background-color: #010B40;
+  padding: .5rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  width: 100%;
+  z-index: 999;
+}
 
-  .containter {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-  }
-  .custom-icon-calendar-check {
-    font-size: 2.5em;
-  }
-  
-  .custom-icon-logout,
-  .custom-icon-arrow-left {
-    font-size: 1.5em;
-  }
-  
-  .custom-icon-calendar-check,
-  .custom-icon-logout,
-  .custom-icon-arrow-left {
-    color: #1ED96F;
-    background-color: transparent;
-  }
+.containter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
 
-  .icon {
-    background-color: transparent;
-  }
+.custom-icon-calendar-check {
+  font-size: 2.5em;
+}
+
+.custom-icon-logout,
+.custom-icon-arrow-left {
+  font-size: 1.5em;
+}
+
+.custom-icon-calendar-check,
+.custom-icon-logout,
+.custom-icon-arrow-left {
+  color: #1ED96F;
+  background-color: transparent;
+}
+
+.icon {
+  background-color: transparent;
+}
 </style>

@@ -43,7 +43,6 @@ export default {
     DisciplinaService.resgatarDetalhesDisciplina(this.codigoTurma)
       .then((response) => {
         this.discipline = response.data[0];
-        console.log(response.data)
       })
       .catch((error) => {
         console.log(error.response.data.message);
